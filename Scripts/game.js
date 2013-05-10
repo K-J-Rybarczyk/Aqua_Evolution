@@ -12,7 +12,7 @@ var maxy = 664;
 
 function ruch
 {
-var klawisz = e.keyCode ? e.keyCode : e.which;
+var klawisz = e.keyCode;
 
 switch(klawisz){
 case 37:
