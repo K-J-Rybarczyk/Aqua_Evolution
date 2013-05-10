@@ -1,14 +1,9 @@
-window.onload=init;
-
-
-var c=document.getElementById("myCanvas");
-var ctx=c.getContext("2d");
-
-// Create gradient
-var grd=ctx.createRadialGradient(70,50,50,450,300,5000);
-grd.addColorStop(0,"blue");
-grd.addColorStop(1,"black");
-
-// Fill with gradient
-ctx.fillStyle=grd;
-ctx.fillRect(0,0,1350,660);
+var xpozycja = 0;
+var xprzemieszczenie = 0;
+var ypozycja = 0;
+var yprzemieszczenie = 0;
+var maxSpeed = 20; //PóŸniej bêdzie uzale¿nione od poziomu szybkoœci postaci
+var minx = 0;
+var miny = 0;
+var maxx = 1218;
+var maxy = 664;

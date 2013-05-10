@@ -5,13 +5,17 @@
 <link href="CSS/index.css" type="text/css" rel="stylesheet">
 
 </head>
-<body>
 
-<canvas id="myCanvas" width="1350 px" height="660 px"></canvas>
-<!--<div id="points">0</div>-->
-<script type="text/javascript" src="Scripts/jquery.js"></script>
+<body onload="gameLoop()" onkeydown="keyDown(event)" onkeyup="keyUp(event)">
+
 <script type="text/javascript" src="Scripts/game.js"></script>
 
-</body>
-</html>
+   <div id="myCanvas"></div>
 
+   <img id='hero' src='Images/test.png'/>
+
+   <!--<div id="points">0</div>-->
+
+</body>
+
+</html>
