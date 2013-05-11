@@ -7,8 +7,13 @@ var minx = 0;
 var miny = 0;
 var maxx = 1218;
 var maxy = 664;
+var lewo = 0;
+var gora = 0;
+var prawo = 0;
+var dol = 0;
 
-function onkeyup(e)
+//niezbędna funkcja, do wykrycia "od-naciśnięcia" przycisku, bez tego dla programu przycisk będzie cały czas wciśnięty
+function keyup(e)
 {
   var code = e.keyCode;
   if (code == 37)
@@ -21,7 +26,8 @@ function onkeyup(e)
     dol = 0;
 }
 
-function onkeydown(e)
+//funkcja naciśnięcia klawisza, przy okazji ułatwia pracę z klawiszami, nie musimy w programie używać ciągle kodów klawiszy, tylko nazw do nich przypisanych
+function keydown(e)
 {
   var code = e.keyCode;
   if (code == 37)
@@ -37,10 +43,48 @@ function onkeydown(e)
 function ruch()
 {
 
+		//xpozycja = xpozycja + xprzemieszczenie;
+   		//ypozycja = ypozycja + yprzemieszczenie;
+
+
+		//narazie wychodzi poza mapę, muszę wymyśleć rozwiązanie tego problemu (będzie spore...)
+		if(xpozycja<maxx && ypozycja<maxy){
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;}
+
+		if(xpozycja>maxx && ypozycja<maxy){
+		xpozycja = 0;
+   		ypozycja = ypozycja + yprzemieszczenie;} 
+
+		if(xpozycja<maxx && ypozycja>maxy){
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = 0;}
+
+		if(xpozycja>maxx && ypozycja>maxy){
+		xpozycja = 0;
+   		ypozycja = 0;}		
+
+   		if(xpozycja<0 && ypozycja<maxy){
+		xpozycja = maxx;
+   		ypozycja = maxy-ypozycja;}
+
+  //aktualna pozycja stworka
 document.getElementById('hero').style.left = xpozycja;
 document.getElementById('hero').style.top = ypozycja;
 
-var klawisz = e.keyCode;
+  //zmiana przemieszczenia, które później wpływa na pozycję
+  if (gora == 1)
+    yprzemieszczenie = yprzemieszczenie - 1;
+  if (dol == 1)
+    yprzemieszczenie = yprzemieszczenie + 1;
+  if (prawo == 1)
+    xprzemieszczenie = xprzemieszczenie + 1;
+  if (lewo == 1)
+    xprzemieszczenie = xprzemieszczenie - 1;
+
+
+//Poniższe funkcje są nieprawidłowe - nie biorą pod uwagę "od-nacisnięcia" przycisku, przez co w najlepszym razie - wykonywałyby się w nieskończoność od pierwszego nacisku
+//var klawisz = e.keyCode;
 /*switch(klawisz){
 
 
@@ -103,32 +147,6 @@ if (klawisz==40){
 
 
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
-setTimeout("ruch()",50);
+setTimeout("ruch()",20);
 
-}
-
-function onkeydown(e)
-{
-  var code = e.keyCode;
-  if (code == 37)
-    lewo = 1;
-  if (code == 38)
-    gora = 1;
-  if (code == 39)
-    prawo = 1;
-  if (code == 40)
-    dol = 1;
-}
-
-function onkeyup(e)
-{
-  var code = e.keyCode;
-  if (code == 37)
-    lewo = 0;
-  if (code == 38)
-    gora = 0;
-  if (code == 39)
-    prawo = 0;
-  if (code == 40)
-    dol = 0;
 }
