@@ -16,10 +16,8 @@ function ruch()
 document.getElementById('hero').style.left = xpozycja;
 document.getElementById('hero').style.top = ypozycja;
 
-
-
 var klawisz = e.keyCode;
-switch(klawisz){
+/*switch(klawisz){
 
 
 	case 37:
@@ -52,7 +50,33 @@ switch(klawisz){
 		xpozycja = xpozycja + xprzemieszczenie;
    		ypozycja = ypozycja + yprzemieszczenie;
 	break;
-	}
+	}*/
+
+
+/*if (klawisz==37){
+		xprzemieszczenie = xprzemieszczenie - 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+}
+
+if (klawisz==38){
+		yprzemieszczenie = yprzemieszczenie - 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+}
+
+if (klawisz==39){
+		xprzemieszczenie = xprzemieszczenie + 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+}
+
+if (klawisz==40){
+		yprzemieszczenie = yprzemieszczenie + 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+}*/
+
 
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",50);
