@@ -8,7 +8,31 @@ var miny = 0;
 var maxx = 1218;
 var maxy = 664;
 
+function onkeyup(e)
+{
+  var code = e.keyCode;
+  if (code == 37)
+    lewo = 0;
+  if (code == 38)
+    gora = 0;
+  if (code == 39)
+    prawo = 0;
+  if (code == 40)
+    dol = 0;
+}
 
+function onkeydown(e)
+{
+  var code = e.keyCode;
+  if (code == 37)
+    lewo = 1;
+  if (code == 38)
+    gora = 1;
+  if (code == 39)
+    prawo = 1;
+  if (code == 40)
+    dol = 1;
+}
 
 function ruch()
 {
@@ -81,4 +105,30 @@ if (klawisz==40){
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",50);
 
+}
+
+function onkeydown(e)
+{
+  var code = e.keyCode;
+  if (code == 37)
+    lewo = 1;
+  if (code == 38)
+    gora = 1;
+  if (code == 39)
+    prawo = 1;
+  if (code == 40)
+    dol = 1;
+}
+
+function onkeyup(e)
+{
+  var code = e.keyCode;
+  if (code == 37)
+    lewo = 0;
+  if (code == 38)
+    gora = 0;
+  if (code == 39)
+    prawo = 0;
+  if (code == 40)
+    dol = 0;
 }
