@@ -2,7 +2,7 @@ var xpozycja = 0;
 var xprzemieszczenie = 0;
 var ypozycja = 0;
 var yprzemieszczenie = 0;
-var maxSpeed = 20; //PóŸniej bêdzie uzale¿nione od poziomu szybkoœci postaci
+var maxSpeed = 2; //PÃ³Å¸niej bÃªdzie uzaleÂ¿nione od poziomu szybkoÅ“ci postaci
 var minx = 0;
 var miny = 0;
 var maxx = 1218;
@@ -10,22 +10,51 @@ var maxy = 664;
 
 
 
-function ruch
+function ruch()
 {
-var klawisz = e.keyCode;
 
+document.getElementById('hero').style.left = xpozycja;
+document.getElementById('hero').style.top = ypozycja;
+
+
+
+var klawisz = e.keyCode;
 switch(klawisz){
-case 37:
-//lewa strza³ka
-break;
-case 38:
-//strza³ka w górê
-break;
-case 39:
-//strza³ka w prawo
-break;
-case 40:
-//strza³ka w dó³
-break;
-}
+
+
+	case 37:
+		//strzaÅ‚ka w lewo
+		xprzemieszczenie = xprzemieszczenie - 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+	break;
+
+
+	case 38:
+		//strzaÂ³ka w gÃ³rÃª
+		yprzemieszczenie = yprzemieszczenie - 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+	break;
+
+
+	case 39:
+		//strzaÅ‚ka w prawo
+		xprzemieszczenie = xprzemieszczenie + 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+	break;
+
+
+	case 40:
+		//strzaÂ³ka w dÃ³Â³
+		yprzemieszczenie = yprzemieszczenie + 1;
+		xpozycja = xpozycja + xprzemieszczenie;
+   		ypozycja = ypozycja + yprzemieszczenie;
+	break;
+	}
+
+//Wykonywanie powyÅ¼szej funkcji regularnie co okreÅ›lonÄ… liczbÄ™ milisekund
+setTimeout("ruch()",50);
+
 }
