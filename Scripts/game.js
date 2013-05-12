@@ -166,9 +166,20 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 var c=document.getElementById("plankton");
 var ctx=c.getContext("2d");
 ctx.fillStyle = "green";
-ctx.fillRect(xplankton, yplankton, 10, 10);
-
+ctx.beginPath();
+ctx.arc(xplankton,yplankton,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
     
-setTimeout("plankton()",100);
+//setTimeout("plankton()",2500);
 
 }
+
+function pozeranie()
+{
+
+
+}
+
+
+
