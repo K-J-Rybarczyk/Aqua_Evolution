@@ -11,6 +11,8 @@ var lewo = 0;
 var gora = 0;
 var prawo = 0;
 var dol = 0;
+var xplankton = 0;
+var yplankton = 0;
 
 //niezbędna funkcja, do wykrycia "od-naciśnięcia" przycisku, bez tego dla programu przycisk będzie cały czas wciśnięty
 function keyup(e)
@@ -66,7 +68,7 @@ function ruch()
 
    		if(xpozycja<0 && ypozycja<maxy){
 		xpozycja = maxx;
-   		ypozycja = maxy-ypozycja;}
+   		ypozycja = ypozycja;}
 
   //aktualna pozycja stworka
 document.getElementById('hero').style.left = xpozycja;
@@ -148,5 +150,25 @@ if (klawisz==40){
 
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",20);
+
+}
+
+
+//Czemu nie działa to cholerne generowanie canvas?!
+function plankton()
+{
+
+xplankton = Math.floor((Math.random()*maxx)+0);
+yplankton = Math.floor((Math.random()*maxy)+0);
+
+
+
+var c=document.getElementById("plankton");
+var ctx=c.getContext("2d");
+ctx.fillStyle = "green";
+ctx.fillRect(xplankton, yplankton, 10, 10);
+
+    
+setTimeout("plankton()",100);
 
 }
