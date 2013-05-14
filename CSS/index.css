@@ -1,18 +1,36 @@
-#myCanvas
-{   
+html{
 	background-image:url('../Images/Backgrounds/aqua.png');
-	height: 800px;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: 1300px;
+
+	background-repeat: no-repeat;
 }
+
+#myCanvas
+{
+	height: 800px;
+
+	left: 0;
+
+	position: absolute;
+
+	top: 0;
+
+	width: 1300px;
+
+}
+
+
 
 #hero
 {
+	
 	position:absolute;
+	
 	left:0;
+	
 	top:0;
+		
 	height:34;
+
 	width:82;
+
 }

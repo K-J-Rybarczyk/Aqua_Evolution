@@ -2,7 +2,7 @@ var xpozycja = 0;
 var xprzemieszczenie = 0;
 var ypozycja = 0;
 var yprzemieszczenie = 0;
-var maxSpeed = 2; //PóŸniej bêdzie uzale¿nione od poziomu szybkoœci postaci
+var maxSpeed = 2;
 var minx = 0;
 var miny = 0;
 var maxx = 1218;
@@ -49,40 +49,48 @@ function ruch()
    		//ypozycja = ypozycja + yprzemieszczenie;
 
 
-		//narazie wychodzi poza mapę, muszę wymyśleć rozwiązanie tego problemu (będzie spore...)
-		if(xpozycja<maxx && ypozycja<maxy){
+		//Przenika na krawędziach mapy, pojawiając się po przeciwnej stronie
+		if(xpozycja<maxx){
 		xpozycja = xpozycja + xprzemieszczenie;
    		ypozycja = ypozycja + yprzemieszczenie;}
 
-		if(xpozycja>maxx && ypozycja<maxy){
+    if(ypozycja<maxy){
+    xpozycja = xpozycja + xprzemieszczenie;
+      ypozycja = ypozycja + yprzemieszczenie;}
+
+		if(xpozycja>maxx){
 		xpozycja = 0;
    		ypozycja = ypozycja + yprzemieszczenie;} 
 
-		if(xpozycja<maxx && ypozycja>maxy){
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = 0;}
+    if(ypozycja>maxy){
+    ypozycja = 0;
+      xpozycja = xpozycja + xprzemieszczenie;}
 
-		if(xpozycja>maxx && ypozycja>maxy){
-		xpozycja = 0;
-   		ypozycja = 0;}		
+    if(xpozycja<minx){
+    xpozycja = maxx;
+      ypozycja = ypozycja + yprzemieszczenie;} 
 
-   		if(xpozycja<0 && ypozycja<maxy){
-		xpozycja = maxx;
-   		ypozycja = ypozycja;}
+    if(ypozycja<miny){
+    ypozycja = maxy;
+      xpozycja = xpozycja + xprzemieszczenie;} 
+
+
+
 
   //aktualna pozycja stworka
 document.getElementById('hero').style.left = xpozycja;
 document.getElementById('hero').style.top = ypozycja;
 
   //zmiana przemieszczenia, które później wpływa na pozycję
+  //Teraz szybkość podana u góry wpływa na szybkość stworka
   if (gora == 1)
-    yprzemieszczenie = yprzemieszczenie - 1;
+    yprzemieszczenie = Math.max(yprzemieszczenie - 1,-1*maxSpeed);
   if (dol == 1)
-    yprzemieszczenie = yprzemieszczenie + 1;
+    yprzemieszczenie = Math.min(yprzemieszczenie + 1,1*maxSpeed);
   if (prawo == 1)
-    xprzemieszczenie = xprzemieszczenie + 1;
+    xprzemieszczenie = Math.min(xprzemieszczenie + 1,1*maxSpeed);
   if (lewo == 1)
-    xprzemieszczenie = xprzemieszczenie - 1;
+    xprzemieszczenie = Math.max(xprzemieszczenie - 1,-1*maxSpeed);
 
 
 //Poniższe funkcje są nieprawidłowe - nie biorą pod uwagę "od-nacisnięcia" przycisku, przez co w najlepszym razie - wykonywałyby się w nieskończoność od pierwszego nacisku
@@ -165,7 +173,7 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 
 var c=document.getElementById("plankton");
 var ctx=c.getContext("2d");
-ctx.fillStyle = "green";
+ctx.fillStyle = "yellow";
 ctx.beginPath();
 ctx.arc(xplankton,yplankton,5,0,2*Math.PI,true);
 ctx.closePath();
@@ -178,6 +186,9 @@ ctx.fill();
 function pozeranie()
 {
 
+if(xpozycja==xplankton){
+  plankton();
+}
 
 }
 
