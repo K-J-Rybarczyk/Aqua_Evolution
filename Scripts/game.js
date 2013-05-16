@@ -5,8 +5,8 @@ var yprzemieszczenie = 0;
 var maxSpeed = 2;
 var minx = 0;
 var miny = 0;
-var maxx = 1218;
-var maxy = 764;
+var maxx = 1240;
+var maxy = 740;
 var lewo = 0;
 var gora = 0;
 var prawo = 0;
@@ -162,7 +162,7 @@ setTimeout("ruch()",20);
 }
 
 
-//Czemu nie działa to cholerne generowanie canvas?!
+//Jest problem: nie jest w stanie przyrównać x/yplankton do wartości stworka, ponieważ x/yplankton to dane całego canvasa "plankton", nie tylko żółtej kulki... Muszę ją generować oddzielnie, ale jak?
 function plankton()
 {
 
@@ -175,7 +175,7 @@ var c=document.getElementById("plankton");
 var ctx=c.getContext("2d");
 ctx.fillStyle = "yellow";
 ctx.beginPath();
-ctx.arc(xplankton,yplankton,5,0,2*Math.PI,true);
+ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);
 ctx.closePath();
 ctx.fill();
     
@@ -186,8 +186,16 @@ ctx.fill();
 function pozeranie()
 {
 
+var jedzonko = new plankton();
+var pozarty = false;
+
 if(xpozycja==xplankton){
-  plankton();
+  pozarty = true;
+  //plankton();
+}
+
+while(pozarty==true);{
+return jedzonko;
 }
 
 }

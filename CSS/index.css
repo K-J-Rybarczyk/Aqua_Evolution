@@ -29,8 +29,16 @@ html{
 	
 	top:0;
 		
-	height:34;
+	height:60;
 
-	width:82;
+	width:60;
 
+}
+
+#plankton{
+	position: absolute;
+	left:0;
+	
+	top:0;
+	
 }
