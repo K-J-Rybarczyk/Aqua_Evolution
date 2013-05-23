@@ -3,6 +3,8 @@ var xprzemieszczenie = 0;
 var ypozycja = 0;
 var yprzemieszczenie = 0;
 var maxSpeed = 2;
+var doswiadczenie = 0;
+var level = 1;
 var minx = 0;
 var miny = 0;
 var maxx = 1240;
@@ -159,10 +161,55 @@ if (klawisz==40){
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",20);
 
-if (xpozycja < xplankton + 7  && xpozycja + 60  > xplankton &&
-    ypozycja < yplankton + 7 && ypozycja + 60 > yplankton) {
+if (xpozycja < xplankton + 7  && xpozycja + 50  > xplankton &&
+    ypozycja < yplankton + 7 && ypozycja + 50 > yplankton) {
 // The objects are touching
+
+
+$("#doswiadczenie").text("Punkty doswiadczenia: "+doswiadczenie)
+
+/*level = doswiadczenie/5;
+$("#level").text("Aktualny level: "+level)*/
+
+
+  $("#level").text("Aktualny level: "+level)
+
+
+if(doswiadczenie>3)
+{
+  level = 2;
+  $("#level").text("Aktualny level: "+level)
+}
+
+if(doswiadczenie>7)
+{
+  level = 3;
+  $("#level").text("Aktualny level: "+level)
+}
+
+if(doswiadczenie>15)
+{
+  level = 4;
+  $("#level").text("Aktualny level: "+level)
+}
+
+if(doswiadczenie>31)
+{
+  level = 5;
+  $("#level").text("Aktualny level: "+level)
+}
+
+if(doswiadczenie>63)
+{
+  level = 6;
+  $("#level").text("Aktualny level: "+level)
+}
+
+
+
+  doswiadczenie = doswiadczenie + 1;
   plankton()
+
 }
 
 }
@@ -179,6 +226,7 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 
 var c=document.getElementById("plankton");
 var ctx=c.getContext("2d");
+ctx.clearRect (0, 0, 1300, 800);
 ctx.fillStyle = "yellow";
 ctx.beginPath();
 ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);

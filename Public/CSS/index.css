@@ -46,3 +46,13 @@ html{
 	top:0;
 	
 }
+
+#doswiadczenie{
+	position: fixed;
+	top: 850px;
+}
+
+#level{
+	position: fixed;
+	top: 870px;
+}
