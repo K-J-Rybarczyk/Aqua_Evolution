@@ -159,6 +159,12 @@ if (klawisz==40){
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",20);
 
+if (xpozycja < xplankton + 7  && xpozycja + 60  > xplankton &&
+    ypozycja < yplankton + 7 && ypozycja + 60 > yplankton) {
+// The objects are touching
+  plankton()
+}
+
 }
 
 
@@ -183,22 +189,26 @@ ctx.fill();
 
 }
 
-function pozeranie()
-{
 
-var jedzonko = new plankton();
-var pozarty = false;
+//Ta funkcja nie chce działać. Jakoś będę musiała rozdzielić ostatecznie tworzenie planktonu od poruszania postacią.
 
-if(xpozycja==xplankton){
-  pozarty = true;
-  //plankton();
-}
+//function pozeranie()
+//{
 
-while(pozarty==true);{
-return jedzonko;
-}
+//var jedzonko = new plankton();
+//var pozarty = false;
 
-}
+//if (xpozycja < xplankton + 7  && xpozycja + 60  > xplankton &&
+//    ypozycja < yplankton + 7 && ypozycja + 60 > yplankton) {
+// The objects are touching
+ // plankton()
+//}
+
+//while(pozarty==true);{
+//return jedzonko;
+//}
+
+//}
 
 
 
