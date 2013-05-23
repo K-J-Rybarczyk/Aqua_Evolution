@@ -11,7 +11,7 @@ var fs = require('fs');
 
 function send404(response) {
     response.writeHead(404, {'Content-Type': 'text/plain'});
-    response.write('Error 404: resource not found.');
+    response.write('404');
     response.end();
 }
 
@@ -56,8 +56,8 @@ var server = http.createServer(function(request, response) {
 });
 
 server.listen(3000, function() {
-     console.log("Server listening on port 3000.");
+     console.log("Port 3000.");
 });
 
-var gameServer = require('./Lib/game_server');
-gameServer.listen(server);
+//var gameServer = require('./Lib/game_server');
+//gameServer.listen(server);

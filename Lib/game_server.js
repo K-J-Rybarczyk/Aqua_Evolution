@@ -1,3 +1,8 @@
-var io = require("socket.io"),
-
-var socket,
+var socketio = require('socket.io'),
+    heroName = {},
+    heroSpeed = {},
+    heroStrength = {},
+    heroIntelligence = {},
+    heroXPozycja ={},
+    heroYPozycja={},
+    currentRoom = {};
