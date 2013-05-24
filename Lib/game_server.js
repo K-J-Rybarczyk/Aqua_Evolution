@@ -1,5 +1,5 @@
 var socketio = require('socket.io'),
-    heroName = {},
+	guestNumber = 1,
     heroSpeed = {},
     heroStrength = {},
     heroIntelligence = {},

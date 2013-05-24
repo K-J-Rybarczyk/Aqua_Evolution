@@ -44,6 +44,26 @@ function keydown(e)
     dol = 1;
 }
 
+//Tworzenie planktonu działa jak ta lala. Czyszczenie canvasu jest potrzebne by usunąć zjedzone planktoniki.
+function plankton()
+{
+
+xplankton = Math.floor((Math.random()*maxx)+0);
+yplankton = Math.floor((Math.random()*maxy)+0);
+
+var c=document.getElementById("plankton");
+var ctx=c.getContext("2d");
+ctx.clearRect (0, 0, 1300, 800);
+ctx.fillStyle = "yellow";
+ctx.beginPath();
+ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+    
+setTimeout("plankton()",5000);
+
+}
+
 function ruch()
 {
 
@@ -161,16 +181,55 @@ if (klawisz==40){
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",20);
 
+
+//czy doszło do "kolizji" komórki z planktonem
 if (xpozycja < xplankton + 7  && xpozycja + 50  > xplankton &&
     ypozycja < yplankton + 7 && ypozycja + 50 > yplankton) {
+
+  pozeranie()
+
+}
+
+}
+
+
+//Jest problem: nie jest w stanie przyrównać x/yplankton do wartości stworka, ponieważ x/yplankton to dane całego canvasa "plankton", nie tylko żółtej kulki... Muszę ją generować oddzielnie, ale jak?
+
+
+
+//Ta funkcja nie chce działać. Jakoś będę musiała rozdzielić ostatecznie tworzenie planktonu od poruszania postacią.
+
+function pozeranie()
+{
+
+  doswiadczenie_zdobyte()
+  plankton()
+
+//var jedzonko = new plankton();
+//var pozarty = false;
+
+//if (xpozycja < xplankton + 7  && xpozycja + 60  > xplankton &&
+//    ypozycja < yplankton + 7 && ypozycja + 60 > yplankton) {
 // The objects are touching
+ // plankton()
+//}
+
+//while(pozarty==true);{
+//return jedzonko;
+//}
+
+}
 
 
-$("#doswiadczenie").text("Punkty doswiadczenia: "+doswiadczenie)
+
+function doswiadczenie_zdobyte()
+{
+  
+
+  $("#doswiadczenie").text("Punkty doswiadczenia: "+doswiadczenie)
 
 /*level = doswiadczenie/5;
 $("#level").text("Aktualny level: "+level)*/
-
 
   $("#level").text("Aktualny level: "+level)
 
@@ -206,57 +265,6 @@ if(doswiadczenie>63)
 }
 
 
-
-  doswiadczenie = doswiadczenie + 1;
-  plankton()
+doswiadczenie = doswiadczenie + 1;
 
 }
-
-}
-
-
-//Jest problem: nie jest w stanie przyrównać x/yplankton do wartości stworka, ponieważ x/yplankton to dane całego canvasa "plankton", nie tylko żółtej kulki... Muszę ją generować oddzielnie, ale jak?
-function plankton()
-{
-
-xplankton = Math.floor((Math.random()*maxx)+0);
-yplankton = Math.floor((Math.random()*maxy)+0);
-
-
-
-var c=document.getElementById("plankton");
-var ctx=c.getContext("2d");
-ctx.clearRect (0, 0, 1300, 800);
-ctx.fillStyle = "yellow";
-ctx.beginPath();
-ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);
-ctx.closePath();
-ctx.fill();
-    
-//setTimeout("plankton()",2500);
-
-}
-
-
-//Ta funkcja nie chce działać. Jakoś będę musiała rozdzielić ostatecznie tworzenie planktonu od poruszania postacią.
-
-//function pozeranie()
-//{
-
-//var jedzonko = new plankton();
-//var pozarty = false;
-
-//if (xpozycja < xplankton + 7  && xpozycja + 60  > xplankton &&
-//    ypozycja < yplankton + 7 && ypozycja + 60 > yplankton) {
-// The objects are touching
- // plankton()
-//}
-
-//while(pozarty==true);{
-//return jedzonko;
-//}
-
-//}
-
-
-
