@@ -20,7 +20,7 @@ var server = http.createServer(app).listen(app.get('port'), function() {
 });
 
 
-var gameServer = require('./Lib/game_server');
+var gameServer = require('./Lib/Game_server');
 gameServer.listen(server);
 
 
