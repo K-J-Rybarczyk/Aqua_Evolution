@@ -16,6 +16,60 @@ var dol = 0;
 var xplankton = 0;
 var yplankton = 0;
 
+
+
+
+
+
+
+
+
+//Chyba se w łeb strzelę, jak to w końcu nie zacznie chodzić jak należy!
+function init() {
+    keys = new Keys();
+    cell = new Cell(xpozycja, ypozycja);
+    socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
+    cells = [];
+    setEventHandlers();
+};
+
+
+
+
+var setEventHandlers = function() {
+    window.addEventListener("keydown", onKeydown, false);
+    window.addEventListener("keyup", onKeyup, false);
+    socket.on("connect", onSocketConnected);
+    socket.on("disconnect", onSocketDisconnect);
+    socket.on("new player", onNewPlayer);
+    socket.on("move player", onMovePlayer);
+};
+
+
+
+
+function onKeydown(e) {
+    if (cell) {
+        keys.onKeyDown(e);
+    };
+};
+
+function onKeyup(e) {
+    if (cell) {
+        keys.onKeyUp(e);
+    };
+};
+
+
+
+
+
+
+/* Te rzeczy na dole są mega ważne - ale na testy musze je wyłączać. Zamknięcie komentarza w linii 228 oraz w 282. Ładny zbieg okoliczności. ;D
+
+
+
+
 //niezbędna funkcja, do wykrycia "od-naciśnięcia" przycisku, bez tego dla programu przycisk będzie cały czas wciśnięty
 function keyup(e)
 {
@@ -178,6 +232,9 @@ if (klawisz==40){
 }*/
 
 
+
+/*cizzyyyyssss...
+
 //Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
 setTimeout("ruch()",20);
 
@@ -221,15 +278,16 @@ function pozeranie()
 }
 
 
-
 function doswiadczenie_zdobyte()
 {
   
-
   $("#doswiadczenie").text("Punkty doswiadczenia: "+doswiadczenie)
 
 /*level = doswiadczenie/5;
 $("#level").text("Aktualny level: "+level)*/
+
+
+/* Ile można to wyłączać?!
 
   $("#level").text("Aktualny level: "+level)
 
@@ -268,3 +326,7 @@ if(doswiadczenie>63)
 doswiadczenie = doswiadczenie + 1;
 
 }
+
+
+
+*/

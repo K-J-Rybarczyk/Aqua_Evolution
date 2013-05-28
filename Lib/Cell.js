@@ -1,3 +1,5 @@
+
+//Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla serwera. 
 var Cell = function(xpozycja, ypozycja) {
     var x = xpozycja,
         y = ypozycja,

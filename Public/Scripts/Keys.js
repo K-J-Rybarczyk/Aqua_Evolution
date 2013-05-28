@@ -1,6 +1,4 @@
-// Input.js
-// Obs³uga sterowania
-var Input = function(gora, lewo, prawo, dol) {
+var Keys = function(gora, lewo, prawo, dol) {
     var gora = gora || false,
             lewo = lewo || false,
             prawo = prawo || false,
