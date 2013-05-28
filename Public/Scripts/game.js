@@ -60,7 +60,7 @@ ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);
 ctx.closePath();
 ctx.fill();
     
-setTimeout("plankton()",50000);
+setTimeout("plankton()",3000);
 
 }
 
