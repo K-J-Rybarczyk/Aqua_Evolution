@@ -1,3 +1,8 @@
+var maxx = 1240;
+var maxy = 740;
+var minx = 0;
+var miny = 0;
+
 var canvas,    
   ctx,     
   keys,     
@@ -12,8 +17,8 @@ function init() {
     canvas = document.getElementById("game");
     ctx = canvas.getContext("2d");
     ctx.fillStyle='#CC5422';
-    canvas.width =  window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width =  maxx;
+    canvas.height = maxy;
 
   keys = new Keys();
 
@@ -62,8 +67,8 @@ function onKeyup(e) {
 
 
 function onResize(e) {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = maxx;
+  canvas.height = maxy;
 };
 
 function onSocketConnected() {
@@ -136,7 +141,7 @@ function draw() {
 
   var i;
   for (i = 0; i < cells.length; i++) {
-    cells[i].draw(ctx);
+    cells[i].drawCell(ctx);
   };
 };
 
