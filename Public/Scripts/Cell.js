@@ -1,5 +1,5 @@
-var maxx = 1240;
-var maxy = 740;
+var maxx = 770;
+var maxy = 570;
 var minx = 0;
 var miny = 0;
 
@@ -44,7 +44,9 @@ var Cell = function(xpozycja, ypozycja) {
 
 
 //Zmodernizowana wersja poruszania się, pochodząca z starego Game.js
-    if(x<maxx){
+ 
+
+/*   if(x<maxx){
         x = x + xprzemieszczenie;
         y = y + yprzemieszczenie;}
 
@@ -66,7 +68,11 @@ var Cell = function(xpozycja, ypozycja) {
 
     if(y<miny){
         y = maxy;
-        x = x + xprzemieszczenie;} 
+        x = x + xprzemieszczenie;} */
+
+
+        x = Math.min(Math.max(x + xprzemieszczenie,minx),maxx);
+        y = Math.min(Math.max(y + yprzemieszczenie,miny),maxy);
 
 
 
@@ -95,7 +101,7 @@ var drawCell = function(ctx)
 {
 ctx.fillStyle = "green";
 ctx.beginPath();
-ctx.arc(x,y,30,0,2*Math.PI,true);
+ctx.arc(xpozycja,ypozycja,15,0,2*Math.PI,true);
 ctx.closePath();
 ctx.fill();
 };

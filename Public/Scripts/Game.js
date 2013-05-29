@@ -1,5 +1,5 @@
-var maxx = 1240;
-var maxy = 740;
+var maxx = 770;
+var maxy = 570;
 var minx = 0;
 var miny = 0;
 
@@ -97,8 +97,9 @@ function onMoveCell(data) {
 
   if (!moveCell) {
     console.log("Cell not found: "+data.id);
+    util.log("Test3");
     return;
-  };
+  }
 
   moveCell.setX(data.x);
   moveCell.setY(data.y);
@@ -110,8 +111,9 @@ function onRemoveCell(data) {
 
   if (!removeCell) {
     console.log("Cell not found: "+data.id);
+    util.log("Test4");
     return;
-  };
+  }
 
   cells.splice(cells.indexOf(removeCell), 1);
 };
@@ -150,9 +152,8 @@ function draw() {
 function cellById(id) {
   var i;
   for (i = 0; i < cells.length; i++) {
-    if (cells[i].id == id)
+    if (cells[i].id == id){
       return cells[i];
   };
-  
-  return false;
+};
 };
