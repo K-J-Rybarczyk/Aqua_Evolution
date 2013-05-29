@@ -15,8 +15,12 @@ var prawo = 0;
 var dol = 0;
 var xplankton = 0;
 var yplankton = 0;
+//
 
-
+var keys,     
+  cells,  
+  cell,  
+  socket;     
 
 
 
@@ -61,11 +65,61 @@ function onKeyup(e) {
 };
 
 
+function onSocketConnected(){
+    console.log("Polaczono z serwerem");
+    socket.emit("new player", {x: cell.getX(),y:cell.getY(),});
+};
+
+function onSocketDisconnect(){
+    console.log("Disconnect");
+};
+
+function onNewPlayer(data){
+    console.log("Nowy gracz: " + data.id);
+    var newCell = new Cell(data.x,data.y);
+    newCell.id = data.id;
+    cars.push(newCell);
+};
+
+function onMovePlayer(data) {
+  var movePlayer = playerById(data.id);
 
 
+  if (!movePlayer) {
+    console.log("Player not found: "+data.id);
+    return;
+  };
+
+  movePlayer.setX(data.x);
+  movePlayer.setY(data.y);
+};
 
 
-/* Te rzeczy na dole są mega ważne - ale na testy musze je wyłączać. Zamknięcie komentarza w linii 228 oraz w 282. Ładny zbieg okoliczności. ;D
+function animate() {
+  update();
+
+  // Request a new animation frame using Paul Irish's shim
+  window.requestAnimFrame(animate);
+};
+
+function update() {
+  if (cell.update(keys)) {
+    socket.emit("move player", {x: cell.getX(),y:cell.getY(),});
+  };
+};
+
+
+function playerById(id) {
+  var i;
+  for (i = 0; i < cells.length; i++) {
+    if (cells[i].id == id)
+      return cells[i];
+  };
+  
+  return false;
+};
+
+/* Te rzeczy na dole są mega ważne - ale na testy musze je wyłączać. Zamknięcie komentarza w linii 228 oraz w 282. Ładny zbieg okoliczności. ;D <- to już trochę nieaktualne, poprzesuwały się w dół.
 
 
 
