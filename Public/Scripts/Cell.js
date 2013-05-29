@@ -1,5 +1,7 @@
 var maxx = 1240;
 var maxy = 740;
+var minx = 0;
+var miny = 0;
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla klienta.
 var Cell = function(xpozycja, ypozycja) {
@@ -26,15 +28,20 @@ var Cell = function(xpozycja, ypozycja) {
         y = newY;
     };
 
-    var getMaxSpeed = function() {
+    var getSpeed = function(){
         return maxSpeed;
     };
-    var setMaxSpeed = function(newMaxSpeed) {
-        maxSpeed = newMaxSpeed;
+
+    var setSpeed = function(newSpeed){
+        maxSpeed = newSpeed;  
     };
 
 
     var update = function(keys) {
+
+        var prevX = x,
+            prevY = y;
+
 
 //Zmodernizowana wersja poruszania się, pochodząca z starego Game.js
     if(x<maxx){
@@ -66,8 +73,8 @@ var Cell = function(xpozycja, ypozycja) {
 
   //aktualna pozycja stworka
   // NEW: coś mi mówi, że to nie będzie działać, przy wielu użytkownikach...
-document.getElementById('hero').style.left = x;
-document.getElementById('hero').style.top = y;
+//document.getElementById('hero').style.left = x;
+//document.getElementById('hero').style.top = y;
 
   //zmiana przemieszczenia, które później wpływa na pozycję
   //Teraz szybkość podana u góry wpływa na szybkość stworka
@@ -80,8 +87,18 @@ document.getElementById('hero').style.top = y;
   if (keys.lewo == 1)
     xprzemieszczenie = Math.max(xprzemieszczenie - 1,-1*maxSpeed);
 
+return (prevX != x || prevY != y) ? true : false;
 
     };
+
+var drawCell = function(ctx) 
+{
+ctx.fillStyle = "green";
+ctx.beginPath();
+ctx.arc(x,y,30,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+};
 
 
     return {
@@ -89,6 +106,9 @@ document.getElementById('hero').style.top = y;
         getY: getY,
         setX: setX,
         setY: setY,
+        getSpeed: getSpeed,
+        setSpeed: setSpeed,
+        drawCell: drawCell,
         update: update
     }
 };

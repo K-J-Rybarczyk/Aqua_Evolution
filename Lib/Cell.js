@@ -3,22 +3,31 @@
 var Cell = function(xpozycja, ypozycja) {
     var x = xpozycja,
         y = ypozycja,
+        maxSpeed = 2,
         id;
     
     var getX = function() {
         return x;
     };
 
-    var getY = function() {
-        return y;
-    };
-
     var setX = function(newX) {
         x = newX;
     };
 
+    var getY = function() {
+        return y;
+    };
+
     var setY = function(newY) {
         y = newY;
+    };
+
+    var getSpeed = function(){
+        return maxSpeed;
+    };
+
+    var setSpeed = function(newSpeed){
+        maxSpeed = newSpeed;  
     };
 
     return {
@@ -26,8 +35,10 @@ var Cell = function(xpozycja, ypozycja) {
         getY: getY,
         setX: setX,
         setY: setY,
-        id: id
-    }
+        id: id,
+        setSpeed : setSpeed,
+        getSpeed : getSpeed
+    };
 };
 
 exports.Cell = Cell;

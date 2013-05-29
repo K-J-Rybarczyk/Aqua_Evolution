@@ -23,70 +23,68 @@ var setEventHandlers = function() {
     socket.sockets.on("connection", onSocketConnection);
 };
 
-function onSocketConnection(client) {
-    util.log("New player has connected: "+client.id);
-    client.on("disconnect", onClientDisconnect);
-    client.on("new player", onNewPlayer);
-    client.on("move player", onMovePlayer);
+function onSocketConnection(cell) {
+    util.log("New cell has connected: "+cell.id);
+    cell.on("disconnect", onCellDisconnect);
+    cell.on("new cell", onNewCell);
+    cell.on("move cell", onMoveCell);
 };
 
 
-function onClientDisconnect() {
-    util.log("Player has disconnected: "+this.id);
+function onCellDisconnect() {
+    util.log("Cell has disconnected: "+this.id);
 
-    var removePlayer = playerById(this.id);
+    var removeCell = cellById(this.id);
 
 
-    if (!removePlayer) {
-        util.log("Player not found: "+this.id);
+    if (!removeCell) {
+        util.log("Cell not found: "+this.id);
         return;
     };
 
-    cells.splice(cells.indexOf(removePlayer), 1);
-
-
-    this.broadcast.emit("remove player", {id: this.id});
+    cells.splice(cells.indexOf(removeCell), 1);
+    this.broadcast.emit("remove cell", {id: this.id});
 };
 
 
-function onNewPlayer(data) {
+function onNewCell(cell) {
 
-    var newPlayer = new Player(data.x, data.y);
-    newPlayer.id = this.id;
-
-
-    this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY()});
+    var newCell = new Cell(cell.x, cell.y);
+    newCell.id = this.id;
 
 
-    var i, existingPlayer;
+    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY()});
+
+
+    var i, existingCell;
     for (i = 0; i < cells.length; i++) {
-        existingPlayer = cells[i];
-        this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()});
+        existingCell = cells[i];
+        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY()});
     };
         
 
-    cells.push(newPlayer);
+    cells.push(newCell);
 };
 
 
-function onMovePlayer(data) {
-    var movePlayer = playerById(this.id);
+function onMoveCell(cell) {
+    var moveCell = cellById(this.id);
 
-    if (!movePlayer) {
-        util.log("Player not found: "+this.id);
+    if (!moveCell) {
+        util.log("Cell not found: "+this.id);
         return;
     };
 
 
-    movePlayer.setX(data.x);
-    movePlayer.setY(data.y);
+    moveCell.setX(cell.x);
+    moveCell.setY(cell.y);
 
-    this.broadcast.emit("move player", {id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY()});
+    this.broadcast.emit("move cell", {id: moveCell.id, x: moveCell.getX(), y: moveCell.getY()});
 };
 
 
 
-function playerById(id) {
+function cellById(id) {
     var i;
     for (i = 0; i < cells.length; i++) {
         if (cells[i].id == id)

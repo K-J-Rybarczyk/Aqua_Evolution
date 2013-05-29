@@ -7,27 +7,29 @@ var Keys = function(gora, lewo, prawo, dol) {
     var onKeyDown = function(e) 
 {
   var code = e.keyCode;
+
   if (code == 37)
-    lewo = 1;
+    this.lewo = true;
   if (code == 38)
-    gora = 1;
+    this.gora = true;
   if (code == 39)
-    prawo = 1;
+    this.prawo = true;
   if (code == 40)
-    dol = 1;
+    this.dol = true;
 }
     
     var onKeyUp = function(e)
 {
   var code = e.keyCode;
+
   if (code == 37)
-    lewo = 0;
+    this.lewo = false;
   if (code == 38)
-    gora = 0;
+    this.gora = false;
   if (code == 39)
-    prawo = 0;
+    this.prawo = false;
   if (code == 40)
-    dol = 0;
+    this.dol = false;
 }
     
     return {

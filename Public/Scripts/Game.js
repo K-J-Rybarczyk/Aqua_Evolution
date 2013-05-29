@@ -1,115 +1,148 @@
-var xpozycja = 0;
-var xprzemieszczenie = 0;
-var ypozycja = 0;
-var yprzemieszczenie = 0;
-var maxSpeed = 2;
-var doswiadczenie = 0;
-var level = 1;
-var minx = 0;
-var miny = 0;
-var maxx = 1240;
-var maxy = 740;
-var lewo = 0;
-var gora = 0;
-var prawo = 0;
-var dol = 0;
-var xplankton = 0;
-var yplankton = 0;
-//
-
-var keys,     
+var canvas,    
+  ctx,     
+  keys,     
+  cell,
   cells,  
-  cell,  
   socket;     
 
 
 
-
-
-
-
-//Chyba se w łeb strzelę, jak to w końcu nie zacznie chodzić jak należy!
 function init() {
-    keys = new Keys();
-    cell = new Cell(xpozycja, ypozycja);
-    socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
-    cells = [];
-    setEventHandlers();
-};
 
+    canvas = document.getElementById("game");
+    ctx = canvas.getContext("2d");
+    ctx.fillStyle='#CC5422';
+    canvas.width =  window.innerWidth;
+    canvas.height = window.innerHeight;
+
+  keys = new Keys();
+
+  var startX =0,
+    startY = 0;
+
+  cell = new Cell(startX, startY);
+
+  socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
+
+  cells = [];
+
+  setEventHandlers();
+};
 
 
 
 var setEventHandlers = function() {
-    window.addEventListener("keydown", onKeydown, false);
-    window.addEventListener("keyup", onKeyup, false);
-    socket.on("connect", onSocketConnected);
-    socket.on("disconnect", onSocketDisconnect);
-    socket.on("new player", onNewPlayer);
-    socket.on("move player", onMovePlayer);
+  window.addEventListener("keydown", onKeydown, false);
+  window.addEventListener("keyup", onKeyup, false);
+  window.addEventListener("resize", onResize, false);
+
+  socket.on("connect", onSocketConnected);
+
+  socket.on("disconnect", onSocketDisconnect);
+
+  socket.on("new cell", onNewCell);
+
+  socket.on("move cell", onMoveCell);
+
+  socket.on("remove cell", onRemoveCell);
 };
-
-
-
 
 function onKeydown(e) {
-    if (cell) {
-        keys.onKeyDown(e);
-    };
+  if (cell) {
+    keys.onKeyDown(e);
+  };
 };
+
 
 function onKeyup(e) {
-    if (cell) {
-        keys.onKeyUp(e);
-    };
+  if (cell) {
+    keys.onKeyUp(e);
+  };
 };
 
 
-function onSocketConnected(){
-    console.log("Polaczono z serwerem");
-    socket.emit("new player", {x: cell.getX(),y:cell.getY(),});
+function onResize(e) {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 };
 
-function onSocketDisconnect(){
-    console.log("Disconnect");
+function onSocketConnected() {
+  console.log("Connected to socket server");
+
+  socket.emit("new cell", {x: cell.getX(), y: cell.getY()});
 };
 
-function onNewPlayer(data){
-    console.log("Nowy gracz: " + data.id);
-    var newCell = new Cell(data.x,data.y);
-    newCell.id = data.id;
-    cars.push(newCell);
+
+function onSocketDisconnect() {
+  console.log("Disconnected from socket server");
 };
 
-function onMovePlayer(data) {
-  var movePlayer = playerById(data.id);
 
+function onNewCell(data) {
+  console.log("New cell connected: "+data.id);
 
-  if (!movePlayer) {
-    console.log("Player not found: "+data.id);
+  var newCell = new Cell(data.x, data.y);
+  newCell.id = data.id;
+
+  cells.push(newCell);
+};
+
+function onMoveCell(data) {
+  var moveCell = cellById(data.id);
+
+  if (!moveCell) {
+    console.log("Cell not found: "+data.id);
     return;
   };
 
-  movePlayer.setX(data.x);
-  movePlayer.setY(data.y);
+  moveCell.setX(data.x);
+  moveCell.setY(data.y);
 };
+
+
+function onRemoveCell(data) {
+  var removeCell = cellById(data.id);
+
+  if (!removeCell) {
+    console.log("Cell not found: "+data.id);
+    return;
+  };
+
+  cells.splice(cells.indexOf(removeCell), 1);
+};
+
 
 
 function animate() {
   update();
-
-  // Request a new animation frame using Paul Irish's shim
+  draw();
   window.requestAnimFrame(animate);
 };
 
+
+
 function update() {
   if (cell.update(keys)) {
-    socket.emit("move player", {x: cell.getX(),y:cell.getY(),});
+    socket.emit("move cell", {x: cell.getX(), y: cell.getY()});
   };
 };
 
 
-function playerById(id) {
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  cell.drawCell(ctx);
+
+  var i;
+  for (i = 0; i < cells.length; i++) {
+    cells[i].draw(ctx);
+  };
+};
+
+
+
+function cellById(id) {
   var i;
   for (i = 0; i < cells.length; i++) {
     if (cells[i].id == id)
@@ -118,269 +151,3 @@ function playerById(id) {
   
   return false;
 };
-
-/* Te rzeczy na dole są mega ważne - ale na testy musze je wyłączać. Zamknięcie komentarza w linii 228 oraz w 282. Ładny zbieg okoliczności. ;D <- to już trochę nieaktualne, poprzesuwały się w dół.
-
-
-
-
-//niezbędna funkcja, do wykrycia "od-naciśnięcia" przycisku, bez tego dla programu przycisk będzie cały czas wciśnięty
-function keyup(e)
-{
-  var code = e.keyCode;
-  if (code == 37)
-    lewo = 0;
-  if (code == 38)
-    gora = 0;
-  if (code == 39)
-    prawo = 0;
-  if (code == 40)
-    dol = 0;
-}
-
-//funkcja naciśnięcia klawisza, przy okazji ułatwia pracę z klawiszami, nie musimy w programie używać ciągle kodów klawiszy, tylko nazw do nich przypisanych
-function keydown(e)
-{
-  var code = e.keyCode;
-  if (code == 37)
-    lewo = 1;
-  if (code == 38)
-    gora = 1;
-  if (code == 39)
-    prawo = 1;
-  if (code == 40)
-    dol = 1;
-}
-
-//Tworzenie planktonu działa jak ta lala. Czyszczenie canvasu jest potrzebne by usunąć zjedzone planktoniki.
-function plankton()
-{
-
-xplankton = Math.floor((Math.random()*maxx)+0);
-yplankton = Math.floor((Math.random()*maxy)+0);
-
-var c=document.getElementById("plankton");
-var ctx=c.getContext("2d");
-ctx.clearRect (0, 0, 1300, 800);
-ctx.fillStyle = "yellow";
-ctx.beginPath();
-ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);
-ctx.closePath();
-ctx.fill();
-    
-setTimeout("plankton()",3000);
-
-}
-
-function ruch()
-{
-
-		//xpozycja = xpozycja + xprzemieszczenie;
-   		//ypozycja = ypozycja + yprzemieszczenie;
-
-
-		//Przenika na krawędziach mapy, pojawiając się po przeciwnej stronie
-		if(xpozycja<maxx){
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;}
-
-    if(ypozycja<maxy){
-    xpozycja = xpozycja + xprzemieszczenie;
-      ypozycja = ypozycja + yprzemieszczenie;}
-
-		if(xpozycja>maxx){
-		xpozycja = 0;
-   		ypozycja = ypozycja + yprzemieszczenie;} 
-
-    if(ypozycja>maxy){
-    ypozycja = 0;
-      xpozycja = xpozycja + xprzemieszczenie;}
-
-    if(xpozycja<minx){
-    xpozycja = maxx;
-      ypozycja = ypozycja + yprzemieszczenie;} 
-
-    if(ypozycja<miny){
-    ypozycja = maxy;
-      xpozycja = xpozycja + xprzemieszczenie;} 
-
-
-
-
-  //aktualna pozycja stworka
-document.getElementById('hero').style.left = xpozycja;
-document.getElementById('hero').style.top = ypozycja;
-
-  //zmiana przemieszczenia, które później wpływa na pozycję
-  //Teraz szybkość podana u góry wpływa na szybkość stworka
-  if (gora == 1)
-    yprzemieszczenie = Math.max(yprzemieszczenie - 1,-1*maxSpeed);
-  if (dol == 1)
-    yprzemieszczenie = Math.min(yprzemieszczenie + 1,1*maxSpeed);
-  if (prawo == 1)
-    xprzemieszczenie = Math.min(xprzemieszczenie + 1,1*maxSpeed);
-  if (lewo == 1)
-    xprzemieszczenie = Math.max(xprzemieszczenie - 1,-1*maxSpeed);
-
-
-//Poniższe funkcje są nieprawidłowe - nie biorą pod uwagę "od-nacisnięcia" przycisku, przez co w najlepszym razie - wykonywałyby się w nieskończoność od pierwszego nacisku
-//var klawisz = e.keyCode;
-/*switch(klawisz){
-
-
-	case 37:
-		//strzałka w lewo
-		xprzemieszczenie = xprzemieszczenie - 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-	break;
-
-
-	case 38:
-		//strza³ka w górê
-		yprzemieszczenie = yprzemieszczenie - 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-	break;
-
-
-	case 39:
-		//strzałka w prawo
-		xprzemieszczenie = xprzemieszczenie + 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-	break;
-
-
-	case 40:
-		//strza³ka w dó³
-		yprzemieszczenie = yprzemieszczenie + 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-	break;
-	}*/
-
-
-/*if (klawisz==37){
-		xprzemieszczenie = xprzemieszczenie - 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-}
-
-if (klawisz==38){
-		yprzemieszczenie = yprzemieszczenie - 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-}
-
-if (klawisz==39){
-		xprzemieszczenie = xprzemieszczenie + 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-}
-
-if (klawisz==40){
-		yprzemieszczenie = yprzemieszczenie + 1;
-		xpozycja = xpozycja + xprzemieszczenie;
-   		ypozycja = ypozycja + yprzemieszczenie;
-}*/
-
-
-
-/*cizzyyyyssss...
-
-//Wykonywanie powyższej funkcji regularnie co określoną liczbę milisekund
-setTimeout("ruch()",20);
-
-
-//czy doszło do "kolizji" komórki z planktonem
-if (xpozycja < xplankton + 7  && xpozycja + 50  > xplankton &&
-    ypozycja < yplankton + 7 && ypozycja + 50 > yplankton) {
-
-  pozeranie()
-
-}
-
-}
-
-
-//Jest problem: nie jest w stanie przyrównać x/yplankton do wartości stworka, ponieważ x/yplankton to dane całego canvasa "plankton", nie tylko żółtej kulki... Muszę ją generować oddzielnie, ale jak?
-
-
-
-//Ta funkcja nie chce działać. Jakoś będę musiała rozdzielić ostatecznie tworzenie planktonu od poruszania postacią.
-
-function pozeranie()
-{
-
-  doswiadczenie_zdobyte()
-  plankton()
-
-//var jedzonko = new plankton();
-//var pozarty = false;
-
-//if (xpozycja < xplankton + 7  && xpozycja + 60  > xplankton &&
-//    ypozycja < yplankton + 7 && ypozycja + 60 > yplankton) {
-// The objects are touching
- // plankton()
-//}
-
-//while(pozarty==true);{
-//return jedzonko;
-//}
-
-}
-
-
-function doswiadczenie_zdobyte()
-{
-  
-  $("#doswiadczenie").text("Punkty doswiadczenia: "+doswiadczenie)
-
-/*level = doswiadczenie/5;
-$("#level").text("Aktualny level: "+level)*/
-
-
-/* Ile można to wyłączać?!
-
-  $("#level").text("Aktualny level: "+level)
-
-
-if(doswiadczenie>3)
-{
-  level = 2;
-  $("#level").text("Aktualny level: "+level)
-}
-
-if(doswiadczenie>7)
-{
-  level = 3;
-  $("#level").text("Aktualny level: "+level)
-}
-
-if(doswiadczenie>15)
-{
-  level = 4;
-  $("#level").text("Aktualny level: "+level)
-}
-
-if(doswiadczenie>31)
-{
-  level = 5;
-  $("#level").text("Aktualny level: "+level)
-}
-
-if(doswiadczenie>63)
-{
-  level = 6;
-  $("#level").text("Aktualny level: "+level)
-}
-
-
-doswiadczenie = doswiadczenie + 1;
-
-}
-
-
-
-*/
