@@ -1,0 +1,253 @@
+var maxx = 770;
+var maxy = 570;
+var minx = 0;
+var miny = 0;
+
+//Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla klienta.
+var Cell = function(xpozycja, ypozycja) {
+    var x = xpozycja,
+        y = ypozycja,
+        id,
+        maxSpeed = 2;
+    
+    var getX = function() {
+        return x;
+    };
+
+    var getY = function() {
+        return y;
+    };
+
+    var setX = function(newX) {
+        x = newX;
+    };
+
+    var setY = function(newY) {
+        y = newY;
+    };
+
+    var getSpeed = function(){
+        return maxSpeed;
+    };
+
+    var setSpeed = function(newSpeed){
+        maxSpeed = newSpeed;  
+    };
+
+
+    // Update player position
+    var update = function(keys) {
+        // Previous position
+        var prevX = x,
+            prevY = y;
+
+
+
+     if(x>maxx){
+        x = 0;
+        y = y + maxSpeed;} 
+
+    if(y>maxy){
+        y = 0;
+        x = x + maxSpeed;}
+
+    if(x<minx){
+        x = maxx;
+        y = y + maxSpeed;} 
+
+    if(y<miny){
+        y = maxy;
+        x = x + maxSpeed;} 
+
+
+
+
+        // Up key takes priority over down
+        if (keys.gora) {
+            y -= maxSpeed;
+        } else if (keys.dol) {
+            y += maxSpeed;
+        };
+
+        // Left key takes priority over right
+        if (keys.lewo) {
+            x -= maxSpeed;
+        } else if (keys.prawo) {
+            x += maxSpeed;
+        };
+
+        return (prevX != x || prevY != y) ? true : false;
+    };
+
+var drawCell = function(ctx) 
+{
+ctx.fillStyle = "#41A317";
+ctx.beginPath();
+ctx.arc(x,y,15,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+//////////////////Pierwszy segment macek//////////////////
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x+10,y+10,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x-10,y-10,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x-10,y+10,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x+10,y-10,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x,y-15,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x,y+15,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x-15,y,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#4CC417";
+ctx.beginPath();
+ctx.arc(x+15,y,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+//////////////////Drugi segment macek//////////////////
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x+13,y+13,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x-13,y-13,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x-13,y+13,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x+13,y-13,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x,y-18,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x,y+18,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x-18,y,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#52DA17";
+ctx.beginPath();
+ctx.arc(x+18,y,4,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+//////////////////Trzeci segment macek//////////////////
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x+16,y+16,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x-16,y-16,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x-16,y+16,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x+16,y-16,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x,y-21,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x,y+21,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x-21,y,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#7FE817";
+ctx.beginPath();
+ctx.arc(x+21,y,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+
+};
+
+    return {
+        getX: getX,
+        getY: getY,
+        setX: setX,
+        setY: setY,
+        getSpeed: getSpeed,
+        setSpeed: setSpeed,
+        drawCell: drawCell,
+        update: update
+    }
+};
