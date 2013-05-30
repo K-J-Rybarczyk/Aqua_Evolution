@@ -1,9 +1,16 @@
+var maxx = 770;
+var maxy = 570;
+var minx = 0;
+var miny = 0;
+
 var util = require("util"),
         io = require("socket.io"),
         Cell = require("./Cell").Cell;
 
 var socket,
-        cells;
+        cells,
+        xplankton,
+        yplankton;
 
 
 exports.listen = function(port_number) { 
@@ -14,7 +21,7 @@ exports.listen = function(port_number) {
         socket.set("transports", ["websocket"]);
         socket.set("log", 0);
     });
-
+    setInterval(onPlankton, 5000)
     setEventHandlers();
 };
 
@@ -28,6 +35,8 @@ function onSocketConnection(cell) {
     cell.on("disconnect", onCellDisconnect);
     cell.on("new cell", onNewCell);
     cell.on("move cell", onMoveCell);
+    cell.on("plankton", onPlankton);
+
 };
 
 
@@ -78,10 +87,33 @@ function onMoveCell(data) {
     };
 
 
+
     moveCell.setX(data.x);
     moveCell.setY(data.y);
 
+    for (i = 0; i < cells.length; i++) {
+
+        if (cells[i].getX() < xplankton + 7 && cells[i].getX() + 15 > xplankton && cells[i].getY() < yplankton + 7 && cells[i].getY() + 15 > yplankton){
+
+            onPlankton();
+    
+    }
+}
+
+
     this.broadcast.emit("move cell", {id: moveCell.id, x: moveCell.getX(), y: moveCell.getY()});
+};
+
+function onPlankton() {
+util.log("planktonik");
+xplankton = Math.floor((Math.random()*maxx)+0);
+yplankton = Math.floor((Math.random()*maxy)+0);
+
+    for(var i = 0; i<cells.length;i++){
+        socket.sockets.socket(cells[i].id).emit("plankton", {xplankton : xplankton, yplankton : yplankton});
+
+    };
+
 };
 
 
@@ -95,5 +127,3 @@ function cellById(id) {
     };
     return false;
 };
-
-

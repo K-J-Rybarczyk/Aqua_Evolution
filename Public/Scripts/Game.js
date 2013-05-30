@@ -8,8 +8,9 @@ var canvas,
   keys,     
   cell,
   cells,  
-  socket;     
-
+  socket,     
+  xplankton,
+  yplankton;
 
 
 function init() {
@@ -50,6 +51,8 @@ var setEventHandlers = function() {
   socket.on("move cell", onMoveCell);
 
   socket.on("remove cell", onRemoveCell);
+
+  socket.on("plankton", onPlankton);
 };
 
 function onKeydown(e) {
@@ -105,6 +108,14 @@ function onMoveCell(data) {
   moveCell.setY(data.y);
 };
 
+function onPlankton(data) {
+
+
+    xplankton = data.xplankton;
+    yplankton = data.yplankton;
+
+};
+
 
 function onRemoveCell(data) {
   var removeCell = cellById(data.id);
@@ -139,7 +150,9 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  cell.drawPlankton(ctx,xplankton,yplankton);
   cell.drawCell(ctx);
+
 
   var i;
   for (i = 0; i < cells.length; i++) {

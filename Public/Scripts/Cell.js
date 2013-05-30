@@ -64,16 +64,16 @@ var Cell = function(xpozycja, ypozycja) {
 
         // Up key takes priority over down
         if (keys.gora) {
-            y -= maxSpeed;
+            y = y - maxSpeed;
         } else if (keys.dol) {
-            y += maxSpeed;
+            y = y + maxSpeed;
         };
 
         // Left key takes priority over right
         if (keys.lewo) {
-            x -= maxSpeed;
+            x = x - maxSpeed;
         } else if (keys.prawo) {
-            x += maxSpeed;
+            x = x + maxSpeed;
         };
 
         return (prevX != x || prevY != y) ? true : false;
@@ -240,6 +240,23 @@ ctx.fill();
 
 };
 
+var drawPlankton = function(ctx,xplankton,yplankton)
+{
+
+
+ctx.fillStyle = "yellow";
+
+ctx.beginPath();
+ctx.arc(xplankton,yplankton,7,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+
+}
+
+
+
+
     return {
         getX: getX,
         getY: getY,
@@ -248,6 +265,7 @@ ctx.fill();
         getSpeed: getSpeed,
         setSpeed: setSpeed,
         drawCell: drawCell,
+        drawPlankton: drawPlankton,
         update: update
     }
 };
