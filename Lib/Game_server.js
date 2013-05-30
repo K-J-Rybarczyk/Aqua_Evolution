@@ -32,6 +32,7 @@ var setEventHandlers = function() {
 
 function onSocketConnection(cell) {
     util.log("New cell has connected: "+cell.id);
+
     cell.on("disconnect", onCellDisconnect);
     cell.on("new cell", onNewCell);
     cell.on("move cell", onMoveCell);
@@ -59,19 +60,24 @@ function onCellDisconnect() {
 
 function onNewCell(data) {
 
-    var newCell = new Cell(data.x, data.y);
+    var newCell = new Cell(data.x, data.y, data.dos);
     newCell.id = this.id;
+    
 
 
-    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY()});
+    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY(), dos: newCell.getDos()});
 
 
     var i, existingCell;
     for (i = 0; i < cells.length; i++) {
         existingCell = cells[i];
-        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY()});
+        cells[i].setDos(0);
+        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY(), dos: existingCell.getDos()});
+
+
     };
-        
+
+util.log("Doswiadczenie: "+data.dos);
 
     cells.push(newCell);
 };
@@ -96,6 +102,9 @@ function onMoveCell(data) {
         if (cells[i].getX() < xplankton + 7 && cells[i].getX() + 15 > xplankton && cells[i].getY() < yplankton + 7 && cells[i].getY() + 15 > yplankton){
 
             onPlankton();
+            //cells[i].setDos(cells[i].getDos()+1)
+
+            //util.log("Doswiadczenie: "+cells[i].dos);
     
     }
 }

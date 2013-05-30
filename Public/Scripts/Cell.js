@@ -4,10 +4,10 @@ var minx = 0;
 var miny = 0;
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla klienta.
-var Cell = function(xpozycja, ypozycja) {
+var Cell = function(xpozycja, ypozycja, doswiadczenie) {
     var x = xpozycja,
         y = ypozycja,
-        dos = doswiadczenie=0,
+        dos = doswiadczenie,
         lvl = level=0,
         id,
         maxSpeed = 2;
@@ -280,6 +280,10 @@ ctx.fill();
         getY: getY,
         setX: setX,
         setY: setY,
+        getDos: getDos,
+        setDos: setDos,
+        getLvl: getLvl,
+        setLvl: setLvl,
         getSpeed: getSpeed,
         setSpeed: setSpeed,
         drawCell: drawCell,

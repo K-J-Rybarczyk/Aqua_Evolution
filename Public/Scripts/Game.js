@@ -24,9 +24,10 @@ function init() {
   keys = new Keys();
 
   var startX =0,
-    startY = 0;
+    startY = 0,
+    startDos = 0;
 
-  cell = new Cell(startX, startY);
+  cell = new Cell(startX, startY, startDos);
 
   socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
 
@@ -77,7 +78,7 @@ function onResize(e) {
 function onSocketConnected() {
   console.log("Connected to socket server");
 
-  socket.emit("new cell", {x: cell.getX(), y: cell.getY()});
+  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos()});
 };
 
 
@@ -88,10 +89,11 @@ function onSocketDisconnect() {
 
 function onNewCell(data) {
   console.log("New cell connected: "+data.id);
+  
 
-  var newCell = new Cell(data.x, data.y);
+  var newCell = new Cell(data.x, data.y, data.dos);
   newCell.id = data.id;
-
+  newCell.dos = data.dos;
   cells.push(newCell);
 };
 
