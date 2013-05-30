@@ -3,6 +3,8 @@
 var Cell = function(xpozycja, ypozycja) {
     var x = xpozycja,
         y = ypozycja,
+        dos = doswiadczenie=0,
+        lvl = level=0,
         maxSpeed = 2,
         id;
     
@@ -21,6 +23,24 @@ var Cell = function(xpozycja, ypozycja) {
     var setY = function(newY) {
         y = newY;
     };
+
+
+    var getDos = function() {
+        return dos;
+    };
+
+    var setDos = function(newDos) {
+        dos = newDos;
+    };
+
+    var getLvl = function() {
+        return lvl;
+    };
+
+    var setLvl = function(newLvl) {
+        lvl = newLvl;
+    };
+
 
     var getSpeed = function(){
         return maxSpeed;
