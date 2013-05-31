@@ -54,6 +54,8 @@ var setEventHandlers = function() {
   socket.on("remove cell", onRemoveCell);
 
   socket.on("plankton", onPlankton);
+
+  //socket.on("doswiadczenie", onDoswiadczenie)
 };
 
 function onKeydown(e) {
@@ -88,7 +90,7 @@ function onSocketDisconnect() {
 
 
 function onNewCell(data) {
-  console.log("New cell connected: "+data.id);
+  console.log("Witaj komóreczko " +data.id +", nie będziesz samotna :3");
   
 
   var newCell = new Cell(data.x, data.y, data.dos);
@@ -101,7 +103,7 @@ function onMoveCell(data) {
   var moveCell = cellById(data.id);
 
   if (!moveCell) {
-    console.log("Cell not found: "+data.id);
+    console.log("Nie widzę "+data.id +" :(");
     util.log("Test3");
     return;
   }
@@ -117,13 +119,19 @@ function onPlankton(data) {
     yplankton = data.yplankton;
 
 };
+/*
+function onDoswiadczenie(data) {
+  var tempCell = cellById(data.id);
 
+  tempCell.setDos(data.dos);
+
+};*/
 
 function onRemoveCell(data) {
   var removeCell = cellById(data.id);
 
   if (!removeCell) {
-    console.log("Cell not found: "+data.id);
+    console.log("Nie widzę "+data.id +" :(");
     util.log("Test4");
     return;
   }

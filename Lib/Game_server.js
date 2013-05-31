@@ -31,24 +31,25 @@ var setEventHandlers = function() {
 };
 
 function onSocketConnection(cell) {
-    util.log("New cell has connected: "+cell.id);
+    util.log("Witaj komóreczko " +cell.id +" ,nie będziesz samotna :3");
 
     cell.on("disconnect", onCellDisconnect);
     cell.on("new cell", onNewCell);
     cell.on("move cell", onMoveCell);
     cell.on("plankton", onPlankton);
+    cell.on("doswiadczenie", onDoswiadczenie);
 
 };
 
 
 function onCellDisconnect() {
-    util.log("Cell has disconnected: "+this.id);
+    util.log("Wracaj szybko "+this.id+ "!:*");
 
     var removeCell = cellById(this.id);
 
 
     if (!removeCell) {
-        util.log("Cell not found: "+this.id);
+        util.log("Nie widzę "+this.id +" :(");
         util.log("Test1");
         return;
     };
@@ -71,13 +72,12 @@ function onNewCell(data) {
     var i, existingCell;
     for (i = 0; i < cells.length; i++) {
         existingCell = cells[i];
-        cells[i].setDos(0);
+        
         this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY(), dos: existingCell.getDos()});
-
 
     };
 
-util.log("Doswiadczenie: "+data.dos);
+util.log("Doswiadczenie gracza "+ newCell.id +": "+data.dos);
 
     cells.push(newCell);
 };
@@ -87,7 +87,7 @@ function onMoveCell(data) {
     var moveCell = cellById(this.id);
 
     if (!moveCell) {
-        util.log("Cell not found: "+this.id);
+        util.log("Nie widzę "+this.id +" :(");
         util.log("Test2");
         return;
     };
@@ -99,15 +99,25 @@ function onMoveCell(data) {
 
     for (i = 0; i < cells.length; i++) {
 
-        if (cells[i].getX() < xplankton + 7 && cells[i].getX() + 15 > xplankton && cells[i].getY() < yplankton + 7 && cells[i].getY() + 15 > yplankton){
+        if (cells[i].getX() < xplankton + 7 && cells[i].getX() + 30 > xplankton && cells[i].getY() < yplankton + 7 && cells[i].getY() + 30 > yplankton){
 
+            var tempCell = cells[i].id;
+
+
+            //cells[i].setDos(cells[i].getDos()+1);
+
+            onDoswiadczenie(tempCell);
             onPlankton();
+            
+
             //cells[i].setDos(cells[i].getDos()+1)
 
             //util.log("Doswiadczenie: "+cells[i].dos);
-    
+            
+    //util.log("Doswiadczenie: "+cells[i].getDos());
     }
 }
+
 
 
     this.broadcast.emit("move cell", {id: moveCell.id, x: moveCell.getX(), y: moveCell.getY()});
@@ -125,6 +135,18 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 
 };
 
+
+function onDoswiadczenie(numerek) {
+var tempCell = cellById(numerek);
+
+tempCell.setDos(tempCell.getDos()+1);
+
+util.log("Doswiadczenie gracza "+ tempCell.id +": "+ tempCell.getDos());
+
+socket.sockets.socket(tempCell.id).emit("doswiadczenie", {dos: tempCell.getDos()});
+
+
+};
 
 
 function cellById(id) {
