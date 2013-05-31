@@ -128,18 +128,10 @@ function onPlankton(data) {
 };
 
 function onDoswiadczenie(data) {
-  var tempCell = cellById(data.id);
 
- if(!tempCell){
-console.log("Nie widzę "+data.id +" :(");
-return;
-}
-
-  tempCell.setDos(data.dos);
-  tempCell.setLvl(data.lvl);
-  tempCell.setSpeed(data.maxSpeed);
-
-
+cell.setDos(data.dos);
+cell.setLvl(data.lvl);
+cell.setSpeed(data.maxSpeed);
 
 };
 

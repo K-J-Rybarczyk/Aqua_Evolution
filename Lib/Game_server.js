@@ -101,7 +101,7 @@ function onMoveCell(data) {
 
     for (i = 0; i < cells.length; i++) {
 
-        if (cells[i].getX() < xplankton + 7 && cells[i].getX() + 30 > xplankton && cells[i].getY() < yplankton + 7 && cells[i].getY() + 30 > yplankton){
+        if (cells[i].getX() < xplankton + 10 && cells[i].getX() + 30 > xplankton && cells[i].getY() < yplankton + 10 && cells[i].getY() + 30 > yplankton){
 
            //var tempCell = cells[i].id;
 
@@ -138,51 +138,75 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 };
 
 
-function onDoswiadczenie(data) {
-var tempCell = cellById(data.id);
+function onDoswiadczenie(cell) {
 
 
-tempCell.setDos(tempCell.getDos()+1);
+cell.setDos(cell.getDos()+1);
 
-util.log("Doswiadczenie gracza "+ tempCell.id +": "+ tempCell.getDos());
-
-//var tempCell2 = tempCell.id;
-
-//onLevel(tempCell2);
+util.log("Doswiadczenie gracza "+ cell.id +": "+ cell.getDos());
 
 
-if(tempCell.getDos()>1)//wartość testowa, oryginalnie będzie tu 3
+
+if(cell.getDos()>3)
 {
-  tempCell.setLvl(5);//wartość testowa, oryginalnie będzie tu 2
-  tempCell.setSpeed(5);//wartość testowa, oryginalnie będzie tu 2
+  cell.setLvl(2);
+  cell.setSpeed(2);
 }
 
-if(tempCell.getDos()>7)
+if(cell.getDos()>7)
 {
-  tempCell.setLvl(3);
+  cell.setLvl(3);
+  cell.setSpeed(3);
 }
 
-if(tempCell.getDos()>15)
+if(cell.getDos()>15)
 {
-  tempCell.setLvl(4);
+  cell.setLvl(4);
+  cell.setSpeed(4);
 }
 
-if(tempCell.getDos()>31)
+if(cell.getDos()>31)
 {
-  tempCell.setLvl(5);
+  cell.setLvl(5);
+  cell.setSpeed(5);
 }
 
-if(tempCell.getDos()>63)
+if(cell.getDos()>63)
 {
-  tempCell.setLvl(6);
+  cell.setLvl(6);
+  cell.setSpeed(6);
+}
+
+if(cell.getDos()>127)
+{
+  cell.setLvl(7);
+  cell.setSpeed(7);
+}
+
+if(cell.getDos()>255)
+{
+  cell.setLvl(8);
+  cell.setSpeed(8);
+}
+
+if(cell.getDos()>513)
+{
+  cell.setLvl(9);
+  cell.setSpeed(9);
+}
+
+if(cell.getDos()>1023)
+{
+  cell.setLvl(10);
+  cell.setSpeed(10);
 }
 
 
-util.log("Poziom gracza "+ tempCell.id +": "+ tempCell.getLvl());
-util.log("Szybkość gracza "+ tempCell.id +": "+ tempCell.getSpeed());
+util.log("Poziom gracza "+ cell.id +": "+ cell.getLvl());
+util.log("Szybkość gracza "+ cell.id +": "+ cell.getSpeed());
 
 
-socket.sockets.socket(tempCell.id).emit("doswiadczenie", {id: tempCell.id, dos: tempCell.getDos(), lvl: tempCell.getLvl(), maxSpeed: tempCell.getSpeed()});
+socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.getDos(), lvl: cell.getLvl(), maxSpeed: cell.getSpeed()});
 
 //socket.sockets.socket(tempCell.id).emit("level", {lvl: tempCell.getLvl(), maxSpeed: tempCell.getSpeed()});
 

@@ -284,6 +284,7 @@ ctx.fill();
         setDos: setDos,
         getLvl: getLvl,
         setLvl: setLvl,
+        id:id,
         getSpeed: getSpeed,
         setSpeed: setSpeed,
         drawCell: drawCell,
