@@ -1,11 +1,11 @@
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla serwera. 
-var Cell = function(xpozycja, ypozycja, doswiadczenie) {
+var Cell = function(xpozycja, ypozycja, doswiadczenie, level, maxSpeed) {
     var x = xpozycja,
         y = ypozycja,
         dos = doswiadczenie,
-        lvl = level=0,
-        maxSpeed = 2,
+        lvl = level,
+        maxSpeed = maxSpeed,
         id;
     
     var getX = function() {

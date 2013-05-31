@@ -4,13 +4,13 @@ var minx = 0;
 var miny = 0;
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla klienta.
-var Cell = function(xpozycja, ypozycja, doswiadczenie) {
+var Cell = function(xpozycja, ypozycja, doswiadczenie, level, maxSpeed) {
     var x = xpozycja,
         y = ypozycja,
         dos = doswiadczenie,
-        lvl = level=0,
+        lvl = level,
         id,
-        maxSpeed = 2;
+        maxSpeed = maxSpeed;
     
     var getX = function() {
         return x;

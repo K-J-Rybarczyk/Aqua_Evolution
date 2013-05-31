@@ -25,9 +25,11 @@ function init() {
 
   var startX =0,
     startY = 0,
-    startDos = 0;
+    startDos = 0,
+    startMaxSpeed = 1,
+    startLvl = 1;
 
-  cell = new Cell(startX, startY, startDos);
+  cell = new Cell(startX, startY, startDos, startLvl, startMaxSpeed);
 
   socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
 
@@ -55,7 +57,7 @@ var setEventHandlers = function() {
 
   socket.on("plankton", onPlankton);
 
-  //socket.on("doswiadczenie", onDoswiadczenie)
+  socket.on("doswiadczenie", onDoswiadczenie)
 };
 
 function onKeydown(e) {
@@ -80,7 +82,8 @@ function onResize(e) {
 function onSocketConnected() {
   console.log("Connected to socket server");
 
-  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos()});
+  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos(), lvl: cell.getLvl(), maxSpeed: cell.getSpeed()});
+
 };
 
 
@@ -93,10 +96,14 @@ function onNewCell(data) {
   console.log("Witaj komóreczko " +data.id +", nie będziesz samotna :3");
   
 
-  var newCell = new Cell(data.x, data.y, data.dos);
+  var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.maxSpeed);
   newCell.id = data.id;
   newCell.dos = data.dos;
+  newCell.lvl = data.lvl;
+  newCell.maxSpeed = data.maxSpeed;
   cells.push(newCell);
+
+
 };
 
 function onMoveCell(data) {
@@ -119,13 +126,22 @@ function onPlankton(data) {
     yplankton = data.yplankton;
 
 };
-/*
+
 function onDoswiadczenie(data) {
   var tempCell = cellById(data.id);
 
-  tempCell.setDos(data.dos);
+ if(!tempCell){
+console.log("Nie widzę "+data.id +" :(");
+return;
+}
 
-};*/
+  tempCell.setDos(data.dos);
+  tempCell.setLvl(data.lvl);
+  tempCell.setSpeed(data.maxSpeed);
+
+
+
+};
 
 function onRemoveCell(data) {
   var removeCell = cellById(data.id);
