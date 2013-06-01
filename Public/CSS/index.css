@@ -87,3 +87,45 @@ html
 	margin-top: 850px;
 
 }
+
+#statystyki_podwyzszanie{
+
+	text-align: center; 
+	margin-left: 55%;
+	position: absolute;
+	margin-top: 775px;
+
+}
+
+#szybkosc{
+
+	font-family: Aquanaut;
+	font-size: 2em;
+	text-align: center; 
+	margin-left: 62%;
+	position: absolute;
+	margin-top: 770px;
+
+}
+
+#sila{
+
+	font-family: Aquanaut;
+	font-size: 2em;
+	text-align: center; 
+	margin-left: 62%;
+	position: absolute;
+	margin-top: 810px;
+
+}
+
+#inteligencja{
+
+	font-family: Aquanaut;
+	font-size: 2em;
+	text-align: center; 
+	margin-left: 62%;
+	position: absolute;
+	margin-top: 850px;
+
+}
