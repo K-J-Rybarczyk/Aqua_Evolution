@@ -1,58 +1,61 @@
-html{
-	background-image:url('../Images/Backgrounds/aqua.png');
+html
+{
 
-	background-repeat: no-repeat;
+	background-color: LightCyan ;
+
 }
+
 
 #game
 {
-	height: 600px;
 
-	left: 0;
+	background-image:url('../Images/Backgrounds/aqua.png');
+
+	background-repeat: no-repeat;
+
+   	width: 800px;
+
+	margin-left: -400px;
+
+	left: 50%;
 
 	position: absolute;
 
-	top: 0;
-
-	width: 800px;
 
 }
 
 
-
-#hero
+#frame
 {
-	
-	position:absolute;
 
-	color:red;
-	text-align: center;
-	font-size: 1.4em;
-	font-family: Verdana, Geneva, sans-serif;	
-	left:0;
-	
-	top:0;
-		
-	height:60;
+	background-image:url('../Images/Backgrounds/frame.png');
 
-	width:60;
+	background-repeat: no-repeat;
 
-}
+   	width: 910px;
 
-#plankton{
+	margin-left: -455px;
+
+	left: 50%;
+
 	position: absolute;
-	left:0;
+
 	
-	top:0;
-	
+
 }
 
 #doswiadczenie{
-	position: fixed;
-	top: 850px;
+
+	margin-left: 30%;
+	position: absolute;
+	margin-top: 620px;
+	
 }
 
 #level{
-	position: fixed;
-	top: 870px;
+
+	margin-left: 30%;
+	position: absolute;
+	margin-top: 640px;
+
 }

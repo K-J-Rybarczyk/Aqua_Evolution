@@ -97,8 +97,11 @@ var Cell = function(xpozycja, ypozycja, doswiadczenie, level, maxSpeed) {
         return (prevX != x || prevY != y) ? true : false;
     };
 
+
+
 var drawCell = function(ctx) 
 {
+
 ctx.fillStyle = "#41A317";
 ctx.beginPath();
 ctx.arc(x,y,15,0,2*Math.PI,true);
@@ -255,6 +258,13 @@ ctx.arc(x+21,y,3,0,2*Math.PI,true);
 ctx.closePath();
 ctx.fill();
 
+
+//////////////////Oczy//////////////////
+
+
+ctx.strokeStyle = 'white';
+ctx.font="15px Arial";
+ctx.strokeText("^ ^",x-8,y+7);
 
 };
 

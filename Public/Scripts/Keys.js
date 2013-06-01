@@ -8,13 +8,13 @@ var Keys = function(gora, lewo, prawo, dol) {
 {
   var code = e.keyCode;
 
-  if (code == 37)
+  if (code == 65)
     this.lewo = true;
-  if (code == 38)
+  if (code == 87)
     this.gora = true;
-  if (code == 39)
+  if (code == 68)
     this.prawo = true;
-  if (code == 40)
+  if (code == 83)
     this.dol = true;
 }
     
@@ -22,13 +22,13 @@ var Keys = function(gora, lewo, prawo, dol) {
 {
   var code = e.keyCode;
 
-  if (code == 37)
+  if (code == 65)
     this.lewo = false;
-  if (code == 38)
+  if (code == 87)
     this.gora = false;
-  if (code == 39)
+  if (code == 68)
     this.prawo = false;
-  if (code == 40)
+  if (code == 83)
     this.dol = false;
 }
     

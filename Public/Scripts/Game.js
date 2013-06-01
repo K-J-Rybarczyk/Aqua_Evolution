@@ -135,6 +135,15 @@ cell.setSpeed(data.maxSpeed);
 
 };
 
+function wypisywanieDanych() {
+
+$("#doswiadczenie").text("Aktualne Doświadczenie: " +cell.getDos())
+$("#level").text("Aktualny Level: " +cell.getLvl())
+
+//document.getElementById("level").innerHTML = "some new <b>HTML</b>";
+setTimeout("wypisywanieDanych()", 1);
+};
+
 function onRemoveCell(data) {
   var removeCell = cellById(data.id);
 
@@ -162,7 +171,6 @@ function update() {
     socket.emit("move cell", {x: cell.getX(), y: cell.getY()});
   };
 };
-
 
 
 function draw() {
