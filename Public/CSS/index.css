@@ -1,3 +1,13 @@
+@font-face {
+
+	font-family: Aquanaut;
+
+	src: url('../Fonts/Aquanaut.ttf');
+
+}
+
+
+
 html
 {
 
@@ -17,6 +27,8 @@ html
 
 	margin-left: -400px;
 
+	margin-top: 84px;
+
 	left: 50%;
 
 	position: absolute;
@@ -32,9 +44,11 @@ html
 
 	background-repeat: no-repeat;
 
-   	width: 910px;
+   	width: 944px;
+	
+	height: 761px;
 
-	margin-left: -455px;
+	margin-left: -472px;
 
 	left: 50%;
 
@@ -45,17 +59,31 @@ html
 }
 
 #doswiadczenie{
-
+	
+	font-family: Aquanaut;
+	font-size: 2em;
 	margin-left: 30%;
 	position: absolute;
-	margin-top: 620px;
+	margin-top: 770px;
 	
 }
 
 #level{
 
+	font-family: Aquanaut;
+	font-size: 2em;
 	margin-left: 30%;
 	position: absolute;
-	margin-top: 640px;
+	margin-top: 810px;
+
+}
+
+#punkty{
+	
+	font-family: Aquanaut;
+	font-size: 2em;
+	margin-left: 30%;
+	position: absolute;
+	margin-top: 850px;
 
 }

@@ -27,9 +27,10 @@ function init() {
     startY = 0,
     startDos = 0,
     startMaxSpeed = 1,
-    startLvl = 1;
+    startLvl = 1,
+    startPkt = 0;
 
-  cell = new Cell(startX, startY, startDos, startLvl, startMaxSpeed);
+  cell = new Cell(startX, startY, startDos, startLvl, startPkt, startMaxSpeed);
 
   socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
 
@@ -82,7 +83,7 @@ function onResize(e) {
 function onSocketConnected() {
   console.log("Connected to socket server");
 
-  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos(), lvl: cell.getLvl(), maxSpeed: cell.getSpeed()});
+  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt(), maxSpeed: cell.getSpeed()});
 
 };
 
@@ -96,10 +97,11 @@ function onNewCell(data) {
   console.log("Witaj komóreczko " +data.id +", nie będziesz samotna :3");
   
 
-  var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.maxSpeed);
+  var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed);
   newCell.id = data.id;
   newCell.dos = data.dos;
   newCell.lvl = data.lvl;
+  newCell.pkt = data.pkt;
   newCell.maxSpeed = data.maxSpeed;
   cells.push(newCell);
 
@@ -131,14 +133,16 @@ function onDoswiadczenie(data) {
 
 cell.setDos(data.dos);
 cell.setLvl(data.lvl);
+cell.setPkt(data.pkt);
 cell.setSpeed(data.maxSpeed);
 
 };
 
 function wypisywanieDanych() {
 
-$("#doswiadczenie").text("Aktualne Doświadczenie: " +cell.getDos())
+$("#doswiadczenie").text("Aktualne Doswiadczenie: " +cell.getDos())
 $("#level").text("Aktualny Level: " +cell.getLvl())
+$("#punkty").text("Wolne punkty umiejetnosci: " +cell.getPkt())
 
 //document.getElementById("level").innerHTML = "some new <b>HTML</b>";
 setTimeout("wypisywanieDanych()", 1);

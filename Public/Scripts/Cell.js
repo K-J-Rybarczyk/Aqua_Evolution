@@ -4,11 +4,12 @@ var minx = 0;
 var miny = 0;
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla klienta.
-var Cell = function(xpozycja, ypozycja, doswiadczenie, level, maxSpeed) {
+var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed) {
     var x = xpozycja,
         y = ypozycja,
         dos = doswiadczenie,
         lvl = level,
+        pkt = punkty,
         id,
         maxSpeed = maxSpeed;
     
@@ -42,6 +43,14 @@ var Cell = function(xpozycja, ypozycja, doswiadczenie, level, maxSpeed) {
 
     var setLvl = function(newLvl) {
         lvl = newLvl;
+    };
+
+    var getPkt = function() {
+        return pkt;
+    };
+
+    var setPkt = function(newPkt) {
+        pkt = newPkt;
     };
 
     var getSpeed = function(){
@@ -294,6 +303,8 @@ ctx.fill();
         setDos: setDos,
         getLvl: getLvl,
         setLvl: setLvl,
+        getPkt: getPkt,
+        setPkt: setPkt,
         id:id,
         getSpeed: getSpeed,
         setSpeed: setSpeed,

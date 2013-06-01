@@ -62,19 +62,19 @@ function onCellDisconnect() {
 
 function onNewCell(data) {
 
-    var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.maxSpeed);
+    var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed);
     newCell.id = this.id;
     
 
 
-    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY(), dos: newCell.getDos(), lvl: newCell.getLvl(), maxSpeed: newCell.getSpeed()});
+    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY(), dos: newCell.getDos(), lvl: newCell.getLvl(), pkt: newCell.getPkt(), maxSpeed: newCell.getSpeed()});
 
 
     var i, existingCell;
     for (i = 0; i < cells.length; i++) {
         existingCell = cells[i];
         
-        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY(), dos: existingCell.getDos(), lvl: existingCell.getLvl(), maxSpeed: existingCell.getSpeed()});
+        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY(), dos: existingCell.getDos(), lvl: existingCell.getLvl(), pkt: existingCell.getPkt(), maxSpeed: existingCell.getSpeed()});
 
     };
 
@@ -145,68 +145,89 @@ cell.setDos(cell.getDos()+1);
 
 util.log("Doswiadczenie gracza "+ cell.id +": "+ cell.getDos());
 
-
+var oldLvl = cell.getLvl();
+var newLvl = 1;
 
 if(cell.getDos()>3)
 {
   cell.setLvl(2);
   cell.setSpeed(2);
+  newLvl  = 2;
 }
 
 if(cell.getDos()>7)
 {
   cell.setLvl(3);
   cell.setSpeed(3);
+  newLvl  = 3;
 }
 
 if(cell.getDos()>15)
 {
   cell.setLvl(4);
   cell.setSpeed(4);
+  newLvl  = 4;
 }
 
 if(cell.getDos()>31)
 {
   cell.setLvl(5);
   cell.setSpeed(5);
+  newLvl  = 5;
 }
 
 if(cell.getDos()>63)
 {
   cell.setLvl(6);
   cell.setSpeed(6);
+  newLvl  = 6;
 }
 
 if(cell.getDos()>127)
 {
   cell.setLvl(7);
   cell.setSpeed(7);
+  newLvl  = 7;
 }
 
 if(cell.getDos()>255)
 {
   cell.setLvl(8);
   cell.setSpeed(8);
+  newLvl  = 8;
 }
 
 if(cell.getDos()>513)
 {
   cell.setLvl(9);
   cell.setSpeed(9);
+  newLvl  = 9;
 }
 
 if(cell.getDos()>1023)
 {
   cell.setLvl(10);
   cell.setSpeed(10);
+  newLvl  = 10;
+}
+
+util.log("oldLvl" + oldLvl);
+util.log("newLvl" + newLvl);
+
+
+if(oldLvl!=newLvl)
+{
+  util.log("NOWY LEVEL!");
+  cell.setPkt(cell.getPkt()+2);
 }
 
 
 util.log("Poziom gracza "+ cell.id +": "+ cell.getLvl());
 util.log("Szybkość gracza "+ cell.id +": "+ cell.getSpeed());
+util.log("Punkty ewolucyjne gracza "+ cell.id +": "+ cell.getPkt());
 
 
-socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.getDos(), lvl: cell.getLvl(), maxSpeed: cell.getSpeed()});
+socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt(), maxSpeed: cell.getSpeed()});
 
 //socket.sockets.socket(tempCell.id).emit("level", {lvl: tempCell.getLvl(), maxSpeed: tempCell.getSpeed()});
 
