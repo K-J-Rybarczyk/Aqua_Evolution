@@ -38,7 +38,7 @@ function onSocketConnection(cell) {
     cell.on("move cell", onMoveCell);
     cell.on("plankton", onPlankton);
     cell.on("doswiadczenie", onDoswiadczenie);
-    //cell.on("level", onLevel);
+    cell.on("statystyki", onStatystyki);
 
 };
 
@@ -151,63 +151,63 @@ var newLvl = 1;
 if(cell.getDos()>3)
 {
   cell.setLvl(2);
-  cell.setSpeed(2);
+  //cell.setSpeed(2);
   newLvl  = 2;
 }
 
 if(cell.getDos()>7)
 {
   cell.setLvl(3);
-  cell.setSpeed(3);
+  //cell.setSpeed(3);
   newLvl  = 3;
 }
 
 if(cell.getDos()>15)
 {
   cell.setLvl(4);
-  cell.setSpeed(4);
+  //cell.setSpeed(4);
   newLvl  = 4;
 }
 
 if(cell.getDos()>31)
 {
   cell.setLvl(5);
-  cell.setSpeed(5);
+  //cell.setSpeed(5);
   newLvl  = 5;
 }
 
 if(cell.getDos()>63)
 {
   cell.setLvl(6);
-  cell.setSpeed(6);
+  //cell.setSpeed(6);
   newLvl  = 6;
 }
 
 if(cell.getDos()>127)
 {
   cell.setLvl(7);
-  cell.setSpeed(7);
+  //cell.setSpeed(7);
   newLvl  = 7;
 }
 
 if(cell.getDos()>255)
 {
   cell.setLvl(8);
-  cell.setSpeed(8);
+  //cell.setSpeed(8);
   newLvl  = 8;
 }
 
 if(cell.getDos()>513)
 {
   cell.setLvl(9);
-  cell.setSpeed(9);
+  //cell.setSpeed(9);
   newLvl  = 9;
 }
 
 if(cell.getDos()>1023)
 {
   cell.setLvl(10);
-  cell.setSpeed(10);
+  //cell.setSpeed(10);
   newLvl  = 10;
 }
 
@@ -223,11 +223,11 @@ if(oldLvl!=newLvl)
 
 
 util.log("Poziom gracza "+ cell.id +": "+ cell.getLvl());
-util.log("Szybkość gracza "+ cell.id +": "+ cell.getSpeed());
+//util.log("Szybkość gracza "+ cell.id +": "+ cell.getSpeed());
 util.log("Punkty ewolucyjne gracza "+ cell.id +": "+ cell.getPkt());
 
 
-socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt(), maxSpeed: cell.getSpeed()});
+socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt()});
 
 //socket.sockets.socket(tempCell.id).emit("level", {lvl: tempCell.getLvl(), maxSpeed: tempCell.getSpeed()});
 
@@ -236,6 +236,20 @@ socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.get
 
 
 };
+
+
+function onStatystyki(data) {
+
+var tempCell = cellById(this.id);
+
+tempCell.setPkt(data.pkt);
+tempCell.setSpeed(data.maxSpeed);
+tempCell.setSi(data.si);
+tempCell.setIntel(data.intel);
+
+
+};
+
 
 /*function onLevel(numerek) {
 var tempCell = cellById(numerek);

@@ -29,8 +29,8 @@ function init() {
     startMaxSpeed = 1,
     startLvl = 1,
     startPkt = 0,
-    startSi = 0,
-    startIntel = 0;
+    startSi = 1,
+    startIntel = 1;
 
   cell = new Cell(startX, startY, startDos, startLvl, startPkt, startMaxSpeed, startSi, startIntel);
 
@@ -138,7 +138,7 @@ function onDoswiadczenie(data) {
 cell.setDos(data.dos);
 cell.setLvl(data.lvl);
 cell.setPkt(data.pkt);
-cell.setSpeed(data.maxSpeed);
+//cell.setSpeed(data.maxSpeed);
 
 };
 
@@ -161,6 +161,48 @@ $("#inteligencja").text( cell.getIntel() )
 //document.getElementById("level").innerHTML = "some new <b>HTML</b>";
 setTimeout("wypisywanieStatystyk()", 1);
 };
+
+
+
+$(function(){
+    $("#Szybkosc").click(function(){
+      if(cell.getPkt()>0){
+        cell.setSpeed(cell.getSpeed()+1);
+        cell.setPkt(cell.getPkt()-1);
+}
+      socket.emit("statystyki", {pkt: cell.getPkt(), maxSpeed: cell.getSpeed(), si: cell.getSi(), intel: cell.getIntel()});
+
+    });
+});
+
+
+
+$(function(){
+    $("#Sila").click(function(){
+      if(cell.getPkt()>0){
+        cell.setSi(cell.getSi()+1);
+        cell.setPkt(cell.getPkt()-1);
+
+      socket.emit("statystyki", {pkt: cell.getPkt(), maxSpeed: cell.getSpeed(), si: cell.getSi(), intel: cell.getIntel() });
+    }
+    });
+});
+
+$(function(){
+    $("#Inteligencja").click(function(){
+      if(cell.getPkt()>0){
+        cell.setIntel(cell.getIntel()+1);
+        cell.setPkt(cell.getPkt()-1);
+
+      socket.emit("statystyki", {pkt: cell.getPkt(), maxSpeed: cell.getSpeed(), si: cell.getSi(), intel: cell.getIntel() });
+    }
+    });
+});
+
+
+
+
+
 
 function onRemoveCell(data) {
   var removeCell = cellById(data.id);
