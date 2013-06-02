@@ -1,12 +1,14 @@
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla serwera. 
-var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed) {
+var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed, sila, inteligencja) {
     var x = xpozycja,
         y = ypozycja,
         dos = doswiadczenie,
         lvl = level,
         pkt = punkty,
         maxSpeed = maxSpeed,
+        si = sila,
+        intel = inteligencja,
         id;
     
     var getX = function() {
@@ -58,6 +60,23 @@ var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed) 
         maxSpeed = newSpeed;  
     };
 
+    var getSi = function(){
+        return si;
+    };
+
+    var setSi = function(newSi){
+        si = newSi;  
+    };
+
+    var getIntel = function(){
+        return intel;
+    };
+
+    var setIntel = function(newIntel){
+        intel = newIntel;  
+    };
+
+
     return {
         getX: getX,
         getY: getY,
@@ -71,7 +90,11 @@ var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed) 
         setPkt: setPkt,
         id: id,
         setSpeed : setSpeed,
-        getSpeed : getSpeed
+        getSpeed : getSpeed,
+        setSi : setSi,
+        getSi : getSi,
+        setIntel : setIntel,
+        getIntel : getIntel
     };
 };
 

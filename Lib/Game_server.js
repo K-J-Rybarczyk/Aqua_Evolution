@@ -62,19 +62,19 @@ function onCellDisconnect() {
 
 function onNewCell(data) {
 
-    var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed);
+    var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed, data.si, data.intel);
     newCell.id = this.id;
     
 
 
-    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY(), dos: newCell.getDos(), lvl: newCell.getLvl(), pkt: newCell.getPkt(), maxSpeed: newCell.getSpeed()});
+    this.broadcast.emit("new cell", {id: newCell.id, x: newCell.getX(), y: newCell.getY(), dos: newCell.getDos(), lvl: newCell.getLvl(), pkt: newCell.getPkt(), maxSpeed: newCell.getSpeed(), si: newCell.getSi(), intel: newCell.getIntel()});
 
 
     var i, existingCell;
     for (i = 0; i < cells.length; i++) {
         existingCell = cells[i];
         
-        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY(), dos: existingCell.getDos(), lvl: existingCell.getLvl(), pkt: existingCell.getPkt(), maxSpeed: existingCell.getSpeed()});
+        this.emit("new cell", {id: existingCell.id, x: existingCell.getX(), y: existingCell.getY(), dos: existingCell.getDos(), lvl: existingCell.getLvl(), pkt: existingCell.getPkt(), maxSpeed: existingCell.getSpeed(), si: existingCell.getSi(), intel: existingCell.getIntel()});
 
     };
 

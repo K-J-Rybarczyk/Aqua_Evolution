@@ -4,13 +4,15 @@ var minx = 0;
 var miny = 0;
 
 //Cell.js tu, Cell.js tam, sialalalala... To jest Cell dla klienta.
-var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed) {
+var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed, sila, inteligencja) {
     var x = xpozycja,
         y = ypozycja,
         dos = doswiadczenie,
         lvl = level,
         pkt = punkty,
         id,
+        si = sila,
+        intel = inteligencja,
         maxSpeed = maxSpeed;
     
     var getX = function() {
@@ -59,6 +61,22 @@ var Cell = function(xpozycja, ypozycja, doswiadczenie, level, punkty, maxSpeed) 
 
     var setSpeed = function(newSpeed){
         maxSpeed = newSpeed;  
+    };
+
+    var getSi = function(){
+        return si;
+    };
+
+    var setSi = function(newSi){
+        si = newSi;  
+    };
+
+    var getIntel = function(){
+        return intel;
+    };
+
+    var setIntel = function(newIntel){
+        intel = newIntel;  
     };
 
 
@@ -308,6 +326,10 @@ ctx.fill();
         id:id,
         getSpeed: getSpeed,
         setSpeed: setSpeed,
+        setSi : setSi,
+        getSi : getSi,
+        setIntel : setIntel,
+        getIntel : getIntel,
         drawCell: drawCell,
         drawPlankton: drawPlankton,
         update: update

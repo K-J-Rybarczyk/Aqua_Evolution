@@ -28,9 +28,11 @@ function init() {
     startDos = 0,
     startMaxSpeed = 1,
     startLvl = 1,
-    startPkt = 0;
+    startPkt = 0,
+    startSi = 0,
+    startIntel = 0;
 
-  cell = new Cell(startX, startY, startDos, startLvl, startPkt, startMaxSpeed);
+  cell = new Cell(startX, startY, startDos, startLvl, startPkt, startMaxSpeed, startSi, startIntel);
 
   socket = io.connect("http://localhost", {port: 3000, transports: ["websocket"]});
 
@@ -83,7 +85,7 @@ function onResize(e) {
 function onSocketConnected() {
   console.log("Connected to socket server");
 
-  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt(), maxSpeed: cell.getSpeed()});
+  socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt(), maxSpeed: cell.getSpeed(), si: cell.getSi(), intel: cell.getIntel()});
 
 };
 
@@ -97,12 +99,14 @@ function onNewCell(data) {
   console.log("Witaj komóreczko " +data.id +", nie będziesz samotna :3");
   
 
-  var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed);
+  var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed, data.si, data.intel);
   newCell.id = data.id;
   newCell.dos = data.dos;
   newCell.lvl = data.lvl;
   newCell.pkt = data.pkt;
   newCell.maxSpeed = data.maxSpeed;
+  newCell.si = data.si;
+  newCell.intel = data.intel;
   cells.push(newCell);
 
 
@@ -146,6 +150,16 @@ $("#punkty").text("Wolne punkty umiejetnosci: " +cell.getPkt())
 
 //document.getElementById("level").innerHTML = "some new <b>HTML</b>";
 setTimeout("wypisywanieDanych()", 1);
+};
+
+function wypisywanieStatystyk() {
+
+$("#szybkosc").text( cell.getSpeed() )
+$("#sila").text( cell.getSi() )
+$("#inteligencja").text( cell.getIntel() )
+
+//document.getElementById("level").innerHTML = "some new <b>HTML</b>";
+setTimeout("wypisywanieStatystyk()", 1);
 };
 
 function onRemoveCell(data) {
