@@ -218,7 +218,12 @@ util.log("newLvl" + newLvl);
 if(oldLvl!=newLvl)
 {
   util.log("NOWY LEVEL!");
-  cell.setPkt(cell.getPkt()+2);
+
+  var tempIntel2 = cell.getIntel()
+
+  var tempIntel2 = Math.round(tempIntel2/2)
+
+  cell.setPkt(cell.getPkt()+1+tempIntel2);
 }
 
 
