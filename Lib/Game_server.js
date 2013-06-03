@@ -21,7 +21,8 @@ exports.listen = function(port_number) {
         socket.set("transports", ["websocket"]);
         socket.set("log", 0);
     });
-    setInterval(onPlankton, 5000)
+    setInterval(onPlankton, 5000);//Wartosc dla testów: setTimeout(onPlankton, 25000);, inaczej nie da się zobaczyć działania walki
+    setInterval(onWalka, 500); //Wartosc dla testów: setInterval(onWalka, 10000);, inaczej nie da się zobaczyć działania walki
     setEventHandlers();
 };
 
@@ -95,36 +96,49 @@ function onMoveCell(data) {
     };
 
 
-
     moveCell.setX(data.x);
     moveCell.setY(data.y);
+
+
+    this.broadcast.emit("move cell", {id: moveCell.id, x: moveCell.getX(), y: moveCell.getY()});
+};
+
+
+function onWalka(){
+
+    var warCells = [];
+
 
     for (i = 0; i < cells.length; i++) {
 
         if (cells[i].getX() < xplankton + 15 && cells[i].getX() + 30 > xplankton && cells[i].getY() < yplankton + 15 && cells[i].getY() + 30 > yplankton){
 
-           //var tempCell = cells[i].id;
-           var date = new Date();
-            var firstContact = date.getTime(); 
 
-            //cells[i].setDos(cells[i].getDos()+1);
+        warCells.push(cells[i].getSi());
 
-            onDoswiadczenie(cells[i]);
-            onPlankton();
-            
+        warCells.sort(porownaj);
 
-            //cells[i].setDos(cells[i].getDos()+1)
+        util.log("warCells[0]: " + warCells[0]);
+        util.log("cells[i].getSi(): " + cells[i].getSi());
 
-            //util.log("Doswiadczenie: "+cells[i].dos);
-            
-    //util.log("Doswiadczenie: "+cells[i].getDos());
+
+          if(warCells[0]==cells[i].getSi())
+            { onDoswiadczenie(cells[i]);
+              onPlankton(); }
+      
+
     }
 }
 
 
 
-    this.broadcast.emit("move cell", {id: moveCell.id, x: moveCell.getX(), y: moveCell.getY()});
-};
+}
+
+
+function porownaj(a,b){
+
+  return b-a;
+}
 
 function onPlankton() {
 util.log("planktonik");
@@ -152,63 +166,54 @@ var newLvl = 1;
 if(cell.getDos()>3)
 {
   cell.setLvl(2);
-  //cell.setSpeed(2);
   newLvl  = 2;
 }
 
 if(cell.getDos()>7)
 {
   cell.setLvl(3);
-  //cell.setSpeed(3);
   newLvl  = 3;
 }
 
 if(cell.getDos()>15)
 {
   cell.setLvl(4);
-  //cell.setSpeed(4);
   newLvl  = 4;
 }
 
 if(cell.getDos()>31)
 {
   cell.setLvl(5);
-  //cell.setSpeed(5);
   newLvl  = 5;
 }
 
 if(cell.getDos()>63)
 {
   cell.setLvl(6);
-  //cell.setSpeed(6);
   newLvl  = 6;
 }
 
 if(cell.getDos()>127)
 {
   cell.setLvl(7);
-  //cell.setSpeed(7);
   newLvl  = 7;
 }
 
 if(cell.getDos()>255)
 {
   cell.setLvl(8);
-  //cell.setSpeed(8);
   newLvl  = 8;
 }
 
 if(cell.getDos()>513)
 {
   cell.setLvl(9);
-  //cell.setSpeed(9);
   newLvl  = 9;
 }
 
 if(cell.getDos()>1023)
 {
   cell.setLvl(10);
-  //cell.setSpeed(10);
   newLvl  = 10;
 }
 
@@ -235,11 +240,6 @@ util.log("Punkty ewolucyjne gracza "+ cell.id +": "+ cell.getPkt());
 
 socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt()});
 
-//socket.sockets.socket(tempCell.id).emit("level", {lvl: tempCell.getLvl(), maxSpeed: tempCell.getSpeed()});
-
-//onLevel(tempCell);
-
-
 
 };
 
@@ -257,43 +257,6 @@ tempCell.setIntel(data.intel);
 };
 
 
-/*function onLevel(numerek) {
-var tempCell = cellById(numerek);
-
-if(tempCell.getDos()>3)
-{
-  tempCell.setLvl(2);
-}
-
-if(tempCell.getDos()>7)
-{
-  tempCell.setLvl(3);
-}
-
-if(tempCell.getDos()>15)
-{
-  tempCell.setLvl(4);
-}
-
-if(tempCell.getDos()>31)
-{
-  tempCell.setLvl(5);
-}
-
-if(tempCell.getDos()>63)
-{
-  tempCell.setLvl(6);
-}
-
-
-util.log("Poziom gracza "+ tempCell.id +": "+ tempCell.getLvl());
-
-socket.sockets.socket(tempCell.id).emit("level", {lvl: tempCell.getLvl()});
-
-onLevel(tempCell);
-
-
-};*/
 
 function cellById(id) {
     var i;
