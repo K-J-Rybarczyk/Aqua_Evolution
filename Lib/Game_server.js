@@ -101,10 +101,11 @@ function onMoveCell(data) {
 
     for (i = 0; i < cells.length; i++) {
 
-        if (cells[i].getX() < xplankton + 10 && cells[i].getX() + 30 > xplankton && cells[i].getY() < yplankton + 10 && cells[i].getY() + 30 > yplankton){
+        if (cells[i].getX() < xplankton + 15 && cells[i].getX() + 30 > xplankton && cells[i].getY() < yplankton + 15 && cells[i].getY() + 30 > yplankton){
 
            //var tempCell = cells[i].id;
-
+           var date = new Date();
+            var firstContact = date.getTime(); 
 
             //cells[i].setDos(cells[i].getDos()+1);
 

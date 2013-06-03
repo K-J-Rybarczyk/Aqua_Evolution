@@ -289,9 +289,78 @@ ctx.fill();
 //////////////////Oczy//////////////////
 
 
-ctx.strokeStyle = 'white';
+ctx.strokeStyle = "#FFE87C";
 ctx.font="15px Arial";
-ctx.strokeText("^ ^",x-8,y+7);
+ctx.strokeText("^ ^",x-8,y+5);
+
+
+//////////////////Zmiany w wyglądzie według statystyk//////////////////
+
+if (maxSpeed>5){
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x+19,y+19,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x-19,y-19,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x-19,y+19,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x+19,y-19,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x,y-24,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x,y+24,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x-24,y,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#B1FB17";
+ctx.beginPath();
+ctx.arc(x+24,y,5,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+}
+
+
+if (si>5){
+ctx.strokeStyle = "white";
+ctx.font="10px Arial";
+ctx.strokeText("ww",x-7,y+10);
+}
+
+if (intel>5){
+ctx.fillStyle = "#151B8D";
+ctx.font="bold 16px Arial";
+ctx.fillText("-OO-",x-18,y+4);
+}
+
 
 };
 
