@@ -1,6 +1,0 @@
-Projekt indywidualny: gra sieciowa.
-Tytu³ roboczy: Aqua Evolution.
-
-Ka¿dy z u¿ytkowników dostaje na pocz±tku swojego jednokomórkowca. G³ównym zadaniem u¿ytkownika to zaj¶æ jak najdalej w ewolucji stworka. Pocz±tkowo ma ograniczony dostêp do .czê¶ci cia³a., które mo¿e odblokowaæ i zakupiæ po osi±gniêciu odpowiedniego poziomu (czê¶ci bêd± wybierane prawdopodobnie z listy albo metod± take & drop). Ka¿da z nich wp³ywa w pewien sposób na statystyki zwierzaka (bêd± to prawdopodobnie si³a, szybko¶æ i inteligencja).
-W grze nie ma walki rozumianej w klasyczny sposób. Na planszy, poza graczami, pojawia siê miêdzy innymi ¿ywno¶æ. Ta ¿ywno¶æ daje punkty do¶wiadczenia. Je¿eli do danego jedzenia podp³ynie wiêcej ni¿ jedna komórka to z pomoc± odpowiedniego skryptu porównuj±cego statystyki gra wybierze zwyciêzce, który otrzyma punkty z jedzenia.
-Gracze bêd± mogli ze sob± siê komunikowaæ za pomoc± czatu (mo¿liwe, i¿ bêdzie ograniczony inteligencj± stworka). Planujê wprowadziæ jak najwiêcej cech zwi±zanych z sam± ewolucj± (np. tworzenie przez graczy stad i wspólne polowania).
