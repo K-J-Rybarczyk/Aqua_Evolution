@@ -1,9 +1,9 @@
 Aqua Evolution
 ================
 
-![screenshot.png]()
+![screenshot.png](https://github.com/K-J-Rybarczyk/Aqua_Evolution/blob/master/screen.png)
 
-Gameplay
+Rozgrywka
 --------
 
 W każdej chwili może do gry dołączyć nowy użytkownik (lub inny odejść). Gracz dostaje swojego jednokomórkowca a jego zadaniem jest nic innego, tylko jak najbardziej rozwinąć jego możliwości.
