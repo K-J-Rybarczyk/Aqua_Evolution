@@ -1,7 +1,8 @@
 Aqua Evolution
 ================
 
-![screenshot.png](https://github.com/K-J-Rybarczyk/Aqua_Evolution/blob/master/screen.png)
+![screenshot.png](https://github.com/K-J-Rybarczyk/Aqua_Evolution/raw/master/screen.png "Screenshot")
+
 
 Rozgrywka
 --------
