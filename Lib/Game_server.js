@@ -6,6 +6,8 @@ var socket,
   cells,
   xplankton,
   yplankton,
+  xwir,
+  ywir,
   maxx = 770,
   maxy = 570,
   minx = 0,
@@ -20,8 +22,12 @@ exports.listen = function(port_number) {
         socket.set("transports", ["websocket"]);
         socket.set("log", 0);
     });
+
+    var zmiennyCzas = Math.floor((Math.random()*300000)+30000); //300000 - 5 minut, 30000 - 0,5 minuty
+    setInterval(onWir, zmiennyCzas);
     setInterval(onPlankton, 5000);
-    setInterval(onWalka, 500); 
+    setInterval(onWalka, 500);
+    setInterval(onPsikus, 1); 
     setEventHandlers();
 };
 
@@ -36,6 +42,7 @@ function onSocketConnection(cell) {
     cell.on("new cell", onNewCell);
     cell.on("move cell", onMoveCell);
     cell.on("plankton", onPlankton);
+    cell.on("wir", onWir);
     cell.on("doswiadczenie", onDoswiadczenie);
     cell.on("statystyki", onStatystyki);
 
@@ -94,6 +101,24 @@ function onMoveCell(data) {
 };
 
 
+
+
+function onPsikus(){
+
+    for (i = 0; i < cells.length; i++) {
+
+        if (cells[i].getX() < xwir + 30 && cells[i].getX() + 30 > xwir && cells[i].getY() < ywir + 30 && cells[i].getY() + 30 > ywir){
+
+      onZaczarowanyPlankton(cells[i]);
+      pseudoZnikniecieWiru()
+    
+    }
+}
+}
+
+
+
+
 function onWalka(){
 
     var warCells = [];
@@ -118,7 +143,6 @@ function onWalka(){
 }
 
 
-
 }
 
 
@@ -140,6 +164,66 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 
 };
 
+
+function onZaczarowanyPlankton(data) {
+
+
+
+if(data.getX()<maxx-30 && data.getY()<maxy-30){
+xplankton = data.getX() +30;
+yplankton = data.getY() +30;
+}
+
+if(data.getX()>maxx-30 && data.getY()<maxy-30){
+xplankton = data.getX() -30;
+yplankton = data.getY() +30;
+}
+
+if(data.getX()<maxx-30 && data.getY()>maxy-30){
+xplankton = data.getX() +30;
+yplankton = data.getY() -30;
+}
+
+if(data.getX()>maxx-30 && data.getY()>maxy-30){
+xplankton = data.getX() -30;
+yplankton = data.getY() -30;
+}
+
+    for(var i = 0; i<cells.length;i++){
+        socket.sockets.socket(cells[i].id).emit("plankton", {xplankton : xplankton, yplankton : yplankton});
+
+    };
+
+};
+
+
+
+function onWir() {
+util.log("nowy wir");
+xwir = Math.floor((Math.random()*maxx)+0);
+ywir = Math.floor((Math.random()*maxy)+0);
+
+    for(var i = 0; i<cells.length;i++){
+        socket.sockets.socket(cells[i].id).emit("wir", {xwir : xwir, ywir : ywir});
+
+    };
+
+    setTimeout(pseudoZnikniecieWiru, 10000)
+
+};
+
+function pseudoZnikniecieWiru(){
+util.log("Bum, wir zniknął!");
+xwir = 1000;
+ywir = 1000;
+
+    for(var i = 0; i<cells.length;i++){
+        socket.sockets.socket(cells[i].id).emit("wir", {xwir : xwir, ywir : ywir});
+
+    };
+
+
+}
 
 function onDoswiadczenie(cell) {
 

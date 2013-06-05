@@ -14,4 +14,4 @@ Szybkość - wpływa rzecz jasna na szybkość poruszania się stworzonka po pla
 Siła - gdy dwie lub więcej komórek dostanie się do jedzenia, to ich siła decyduje o tym, kto zwycięży i otrzyma punkt doświadczenia.
 Inteligencja - im większa inteligencja, tym użytkownik dostanie więcej punktów umiejętności do rozdysponowania co poziom.
 
-Poza graczami na planszy pojawia się żółty plankton - to on, a dokładniej pożarcie go daje punkty doświadczenia. Spore znaczenie poza podstawowymi statystykami zwierzątka ma spryt samego gracza - nawet wolniejszy może dostać się do jedzenia szybciej od tych, które płyną szybciej, szczególnie jeżeli umiejętnie potrafi wykorzystać przenikanie przez ściany, skracając sobie drogę do cennego pożywienia.
+Poza graczami na planszy pojawia się żółty plankton - to on, a dokładniej pożarcie go daje punkty doświadczenia. Spore znaczenie poza podstawowymi statystykami zwierzątka ma spryt samego gracza - nawet wolniejszy stworek może dostać się do jedzenia przed tymi, które płyną szybciej, szczególnie jeżeli umiejętnie potrafi wykorzystać przenikanie przez ściany i wodne wiry, skracając sobie drogę do cennego pożywienia.

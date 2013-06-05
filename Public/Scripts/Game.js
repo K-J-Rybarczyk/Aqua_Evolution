@@ -6,6 +6,8 @@ var canvas,
   socket,     
   xplankton,
   yplankton,
+  xwir,
+  ywir,
   maxx = 770,
   maxy = 570,
   minx = 0,
@@ -55,6 +57,8 @@ var setEventHandlers = function() {
   socket.on("remove cell", onRemoveCell);
 
   socket.on("plankton", onPlankton);
+
+  socket.on("wir", onWir);
 
   socket.on("doswiadczenie", onDoswiadczenie)
 };
@@ -120,6 +124,14 @@ function onPlankton(data) {
 
     xplankton = data.xplankton;
     yplankton = data.yplankton;
+
+};
+
+function onWir(data) {
+
+
+    xwir = data.xwir;
+    ywir = data.ywir;
 
 };
 
@@ -220,6 +232,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   cell.drawPlankton(ctx,xplankton,yplankton);
+  cell.drawWir(ctx,xwir,ywir);
   cell.drawCell(ctx);
 
 

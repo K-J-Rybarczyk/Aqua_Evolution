@@ -385,6 +385,54 @@ ctx.fill();
 
 
 
+var drawWir = function(ctx,xwir,ywir)
+{
+
+
+ctx.fillStyle = "#0020C2";
+ctx.beginPath();
+ctx.arc(xwir,ywir,21,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#56A5EC";
+ctx.beginPath();
+ctx.arc(xwir,ywir,18,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#0020C2";
+ctx.beginPath();
+ctx.arc(xwir,ywir,15,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#56A5EC";
+ctx.beginPath();
+ctx.arc(xwir,ywir,12,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#0020C2";
+ctx.beginPath();
+ctx.arc(xwir,ywir,9,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#56A5EC";
+ctx.beginPath();
+ctx.arc(xwir,ywir,6,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "#0020C2";
+ctx.beginPath();
+ctx.arc(xwir,ywir,3,0,2*Math.PI,true);
+ctx.closePath();
+ctx.fill();
+}
+
+
 
     return {
         getX: getX,
@@ -406,6 +454,7 @@ ctx.fill();
         getIntel : getIntel,
         drawCell: drawCell,
         drawPlankton: drawPlankton,
+        drawWir: drawWir,
         update: update
     }
 };
