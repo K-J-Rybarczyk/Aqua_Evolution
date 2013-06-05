@@ -13,7 +13,7 @@ var canvas,
   minx = 0,
   miny = 0;
 
-function init() {
+var init = function(){
 
     canvas = document.getElementById("game");
     ctx = canvas.getContext("2d");
@@ -63,21 +63,22 @@ var setEventHandlers = function() {
   socket.on("doswiadczenie", onDoswiadczenie)
 };
 
-function onKeydown(e) {
+
+var onKeydown = function(e){
   if (cell) {
     keys.onKeyDown(e);
   };
 };
 
 
-function onKeyup(e) {
+var onKeyup = function(e){
   if (cell) {
     keys.onKeyUp(e);
   };
 };
 
 
-function onSocketConnected() {
+var onSocketConnected = function(){
   console.log("Connected to socket server");
 
   socket.emit("new cell", {x: cell.getX(), y: cell.getY(), dos: cell.getDos(), lvl: cell.getLvl(), pkt: cell.getPkt(), maxSpeed: cell.getSpeed(), si: cell.getSi(), intel: cell.getIntel()});
@@ -85,12 +86,12 @@ function onSocketConnected() {
 };
 
 
-function onSocketDisconnect() {
+var onSocketDisconnect = function(){
   console.log("Disconnected from socket server");
 };
 
 
-function onNewCell(data) {
+var onNewCell = function(data){
   console.log("Witaj komóreczko " +data.id +", nie będziesz samotna :3");
   
 
@@ -107,7 +108,7 @@ function onNewCell(data) {
 
 };
 
-function onMoveCell(data) {
+var onMoveCell = function(data){
   var moveCell = cellById(data.id);
 
   if (!moveCell) {
@@ -119,7 +120,7 @@ function onMoveCell(data) {
   moveCell.setY(data.y);
 };
 
-function onPlankton(data) {
+var onPlankton = function(data){
 
 
     xplankton = data.xplankton;
@@ -127,7 +128,8 @@ function onPlankton(data) {
 
 };
 
-function onWir(data) {
+
+var onWir = function(data){
 
 
     xwir = data.xwir;
@@ -135,7 +137,7 @@ function onWir(data) {
 
 };
 
-function onDoswiadczenie(data) {
+var onDoswiadczenie = function(data){
 
 cell.setDos(data.dos);
 cell.setLvl(data.lvl);
@@ -143,7 +145,7 @@ cell.setPkt(data.pkt);
 
 };
 
-function wypisywanieDanych() {
+var wypisywanieDanych = function(){
 
 $("#doswiadczenie").text("Aktualne Doswiadczenie: " +cell.getDos())
 $("#level").text("Aktualny Level: " +cell.getLvl())
@@ -152,7 +154,7 @@ $("#punkty").text("Wolne punkty umiejetnosci: " +cell.getPkt())
 setTimeout("wypisywanieDanych()", 1);
 };
 
-function wypisywanieStatystyk() {
+var wypisywanieStatystyk = function(){
 
 $("#szybkosc").text( cell.getSpeed() )
 $("#sila").text( cell.getSi() )
@@ -200,7 +202,8 @@ $(function(){
 
 
 
-function onRemoveCell(data) {
+var onRemoveCell = function(data){
+
   var removeCell = cellById(data.id);
 
   if (!removeCell) {
@@ -213,7 +216,7 @@ function onRemoveCell(data) {
 
 
 
-function animate() {
+var animate = function(){
   update();
   draw();
   window.requestAnimFrame(animate);
@@ -221,14 +224,14 @@ function animate() {
 
 
 
-function update() {
+var update = function() {
   if (cell.update(keys)) {
     socket.emit("move cell", {x: cell.getX(), y: cell.getY()});
   };
 };
 
 
-function draw() {
+var draw = function() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   cell.drawPlankton(ctx,xplankton,yplankton);
@@ -244,7 +247,7 @@ function draw() {
 
 
 
-function cellById(id) {
+var cellById = function(id) {
   var i;
   for (i = 0; i < cells.length; i++) {
     if (cells[i].id == id){

@@ -35,7 +35,7 @@ var setEventHandlers = function() {
     socket.sockets.on("connection", onSocketConnection);
 };
 
-function onSocketConnection(cell) {
+var onSocketConnection = function(cell){
     util.log("Witaj komóreczko " +cell.id +" ,nie będziesz samotna :3");
 
     cell.on("disconnect", onCellDisconnect);
@@ -49,7 +49,7 @@ function onSocketConnection(cell) {
 };
 
 
-function onCellDisconnect() {
+var onCellDisconnect = function(){
     util.log("Wracaj szybko "+this.id+ "!:*");
 
     var removeCell = cellById(this.id);
@@ -65,7 +65,7 @@ function onCellDisconnect() {
 };
 
 
-function onNewCell(data) {
+var onNewCell = function(data){
 
     var newCell = new Cell(data.x, data.y, data.dos, data.lvl, data.pkt, data.maxSpeed, data.si, data.intel);
     newCell.id = this.id;
@@ -86,7 +86,7 @@ function onNewCell(data) {
 };
 
 
-function onMoveCell(data) {
+var onMoveCell = function(data){
     var moveCell = cellById(this.id);
 
     if (!moveCell) {
@@ -103,7 +103,7 @@ function onMoveCell(data) {
 
 
 
-function onPsikus(){
+var onPsikus = function(){
 
     for (i = 0; i < cells.length; i++) {
 
@@ -119,7 +119,7 @@ function onPsikus(){
 
 
 
-function onWalka(){
+var onWalka = function(){
 
     var warCells = [];
 
@@ -146,13 +146,14 @@ function onWalka(){
 }
 
 
-function porownaj(a,b){
+var porownaj = function(a,b){
 
   return b-a;
 }
 
 
-function onPlankton() {
+
+var onPlankton = function(){
 util.log("nowy planktonik");
 xplankton = Math.floor((Math.random()*maxx)+0);
 yplankton = Math.floor((Math.random()*maxy)+0);
@@ -165,7 +166,7 @@ yplankton = Math.floor((Math.random()*maxy)+0);
 };
 
 
-function onZaczarowanyPlankton(data) {
+var onZaczarowanyPlankton = function(data){
 
 
 
@@ -198,7 +199,7 @@ yplankton = data.getY() -30;
 
 
 
-function onWir() {
+var onWir = function(){
 util.log("nowy wir");
 xwir = Math.floor((Math.random()*maxx)+0);
 ywir = Math.floor((Math.random()*maxy)+0);
@@ -212,7 +213,7 @@ ywir = Math.floor((Math.random()*maxy)+0);
 
 };
 
-function pseudoZnikniecieWiru(){
+var pseudoZnikniecieWiru = function(){
 util.log("Bum, wir zniknął!");
 xwir = 1000;
 ywir = 1000;
@@ -225,7 +226,7 @@ ywir = 1000;
 
 }
 
-function onDoswiadczenie(cell) {
+var onDoswiadczenie = function(cell){
 
 
 cell.setDos(cell.getDos()+1);
@@ -308,7 +309,7 @@ socket.sockets.socket(cell.id).emit("doswiadczenie", {id: cell.id, dos: cell.get
 };
 
 
-function onStatystyki(data) {
+var onStatystyki = function(data){
 
 var tempCell = cellById(this.id);
 
@@ -321,8 +322,7 @@ tempCell.setIntel(data.intel);
 };
 
 
-
-function cellById(id) {
+var cellById = function (id){
     var i;
     for (i = 0; i < cells.length; i++) {
         if (cells[i].id == id){
